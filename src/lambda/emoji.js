@@ -1,8 +1,6 @@
-import emoji from 'node-emoji';
-
 export async function handler() {
   return {
     statusCode: 200,
-    body: JSON.stringify(emoji.random())
+    body: JSON.stringify('this is me')
   };
 }
