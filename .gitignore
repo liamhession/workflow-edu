@@ -88,4 +88,7 @@ typings/
 .dynamodb/
 
 dist
-public/styles.css
+
+# gatsby files
+.cache/
+public

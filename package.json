@@ -20,7 +20,11 @@
   ],
   "author": "Liam Hession",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "gatsby": "^2.23.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
   "devDependencies": {
     "netlify-cli": "^2.53.0",
     "netlify-lambda": "^1.6.3",
