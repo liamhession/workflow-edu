@@ -14,13 +14,10 @@ const db = admin.firestore();
 
 exports.handler = async (event, context) => {
   try {
-    const newOnboardingResponse = db.collection('onboardingResponses').doc();
-
     // Take the object passed in as POST body
     const submittedResponse = JSON.parse(event.body);
-    console.log(submittedResponse);
 
-    const createdResponse = newOnboardingResponse.set(submittedResponse);
+    const createdResponse = await db.collection('onboardingResponses').add(submittedResponse);
 
     return {
       statusCode: 200,

@@ -138,7 +138,7 @@ const JoinPage = () => {
             <br />
             We'll be working together on building out your perfect Workflows in no time.
           </h1>
-          <div className="info pt-2 text-gray-700 text-sm font-bold">Teachers: for now, you're seeing the Student onboarding flow, but just answer honestly from your own experience. This will help us develop our student product, thanks!</div>
+          <div className="info pt-2 text-gray-700 text-sm font-bold">Teachers: for now, you're seeing the Student onboarding flow, but just answer honestly from your own experience. This will help us develop our student product. Thanks!</div>
         </div>
       </section>
       <section id="question-header" className="pt-10">

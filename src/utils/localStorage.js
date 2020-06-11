@@ -6,4 +6,7 @@ export const getLocalItem = (key) =>
     : {};
 
 export const setLocalItem = (key, object) =>
-  window.localStorage.setItem(key, JSON.stringify(object));
+  isBrowser() && window.localStorage.setItem(key, JSON.stringify(object));
+
+export const clearLocalStorage = () =>
+  isBrowser() && window.localStorage.clear();
