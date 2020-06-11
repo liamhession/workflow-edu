@@ -1,14 +1,10 @@
-# Netlify Lambda Tailwind Static Starter demo
+# Workflow Edu
 
-> A starter project with Netlify Lambda, Tailwind CSS and static pages.
+## TODO
+* Create real rules to lock down data read/writes to [Firestore](https://console.firebase.google.com/u/2/project/workflow-edu/database/firestore/rules) 
+* The Gatsby way to pull in data would be with GraphQL sources and there is a plugin for firestore, but not sure i could input new entries with that
 
-<!-- Markdown snippet -->
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/HugoDF/netlify-lambda-tailwind-static-starter)
-
-There's a lambda generating random emoji 👍 at [./src/lambda/emoji.js](./src/lambda/emoji.js)
-
-The index page is just HTML with inline scripts.
-
+# Notes from starter project:
 A JavaScript function intercepts form submits and sends them using `fetch` instead. There's also a helper to get field values using their name, [see `getFieldValue(form, fieldName)` on GitHub](https://github.com/HugoDF/netlify-lambda-tailwind-static-starter/blob/fc936bd76f201c90ade459a9ab73bf19fdab6aec/public/index.html#L65).
 
 This is a good starting point for quick Lambda demos.
