@@ -1,0 +1,14 @@
+{
+  "name": "read-firestore",
+  "version": "1.0.0",
+  "description": "Read from firestore database lambda",
+  "main": "read-firestore.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase-admin": "^8.12.1"
+  }
+}

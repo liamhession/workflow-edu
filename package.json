@@ -4,6 +4,7 @@
   "description": "Site for teachers to compare and discover the best learning/working Workflows",
   "main": "index.js",
   "scripts": {
+    "prestart": "yarn build:tw",
     "start": "netlify dev",
     "build": "yarn build:css",
     "build:css": "yarn build:tw",
