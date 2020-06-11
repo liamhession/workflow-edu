@@ -22,6 +22,10 @@ const SubmitPanel = () => {
     if (!isLoggedIn) return;
 
     const responses = getLocalItem('onboardingResponses');
+
+    // If they are logged in, we can grab the user details from identity, add that to the submitted object
+    responses.user = identity.user;
+
     fetch('/.netlify/functions/write-firestore', {
       body: JSON.stringify(responses),
       method: 'POST',
