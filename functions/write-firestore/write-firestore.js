@@ -18,23 +18,13 @@ exports.handler = async (event, context) => {
 
     // Take the object passed in as POST body
     const submittedResponse = JSON.parse(event.body);
-
-    // Get user details if they're logged in
-    const {identity, user} = context.clientContext;
-    console.log('identity, user:');
-    console.log(identity);
-    console.log(user);
+    console.log(submittedResponse);
 
     const createdResponse = newOnboardingResponse.set(submittedResponse);
-    const createdResponseWithUserDetails = {
-      ...createdResponse,
-      user,
-      identity,
-    };
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ createdResponseWithUserDetails }),
+      body: JSON.stringify({ createdResponse }),
     }
   } catch (err) {
     return { statusCode: 500, body: err.toString() }
