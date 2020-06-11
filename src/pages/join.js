@@ -7,14 +7,17 @@ import Card from '../components/Card';
 import Icon from '../components/Icon';
 import Layout from '../components/layout/Layout';
 
-const NUMBER_OF_QUESTIONS = 3;
+const NUMBER_OF_QUESTIONS = 4;
 const getQuestionComponent = (number) => {
   if (number === 1) return <QuestionOne />;
   else if (number === 2) return <QuestionTwo />;
-  else if (number === 3) return <SubmitPanel />;
+  else if (number === 3) return <QuestionThree />;
+  else if (number === NUMBER_OF_QUESTIONS) return <SubmitPanel />;
 };
 
 const SubmitPanel = () => {
+  const [submitted, setSubmitted] = useState(false);
+
   const identity = useIdentityContext();
   const isLoggedIn = identity && identity.isLoggedIn;
 
@@ -30,6 +33,8 @@ const SubmitPanel = () => {
       body: JSON.stringify(responses),
       method: 'POST',
     });
+
+    setSubmitted(true);
   };
 
   return (
@@ -40,9 +45,58 @@ const SubmitPanel = () => {
           <button className={`rounded bg-green-400 p-2 ${isLoggedIn?'cursor-pointer':'cursor-default'}`}
             type="submit"
             onClick={submitResponses}>
-            {isLoggedIn ? 'Submit' : 'Please Sign Up Above Before Submitting'}
+            {isLoggedIn ? (submitted ? 'Thanks!' : 'Submit') : 'Please Sign Up Above Before Submitting'}
           </button>
         </Card>
+      </div>
+    </section>
+  );
+};
+
+const QuestionThree = () => {
+  return (
+    <section id="question-three" className="pt-8 lg:pb-20 lg:pt-18">
+      <div className="container mx-auto text-center">
+        <h2 className="text-xl lg:text-2xl font-semibold mb-10">Phrase(s) to best describe your current communication preferences:</h2>
+        <div className="flex flex-col sm:flex-row sm:-mx-3 mt-2">
+          <div className="flex-1 px-3">
+            <ClickableCard className="mb-8" responseKey="communication-detailed-emails">
+              <div className="font-semibold text-xl text-center mx-auto">
+                <div className="inline-block align-middle">Send me a detailed email!</div>
+              </div>
+            </ClickableCard>
+          </div>
+          <div className="flex-1 px-3">
+            <ClickableCard className="mb-8" responseKey="communication-video-messages">
+              <div className="font-semibold text-xl text-center mx-auto">
+                <div className="inline-block align-middle">Video messages appreciated!</div>
+              </div>
+            </ClickableCard>
+          </div>
+          <div className="flex-1 px-3">
+            <ClickableCard className="mb-8" responseKey="communication-texts">
+              <div className="font-semibold text-xl text-center mx-auto">
+                <div className="inline-block align-middle">Ping me in short form! Texts rock!</div>
+              </div>
+            </ClickableCard>
+          </div>
+        </div>
+        <div className="flex flex-col sm:flex-row sm:-mx-3 mt-2">
+          <div className="flex-1 px-3">
+            <ClickableCard className="mb-8" responseKey="communication-slack">
+              <div className="font-semibold text-xl text-center mx-auto">
+                <div className="inline-block align-middle">You'll find me interacting on the message boards</div>
+              </div>
+            </ClickableCard>
+          </div>
+          <div className="flex-1 px-3">
+            <ClickableCard className="mb-8" responseKey="communication-none">
+              <div className="font-semibold text-xl text-center mx-auto">
+                <div className="inline-block align-middle">Tight schedule currently. Check back soon!</div>
+              </div>
+            </ClickableCard>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -142,7 +196,7 @@ const JoinPage = () => {
         </div>
       </section>
       <section id="question-header" className="pt-10">
-        <h2 className="text-center text-3xl lg:text-4xl xl:text-5xl font-bold">Question {questionNumber}</h2>
+        {questionNumber < NUMBER_OF_QUESTIONS && <h2 className="text-center text-3xl lg:text-4xl xl:text-5xl font-bold">Question {questionNumber}</h2>}
         <div className="flex justify-between px-16">
           <div className={`w-8 cursor-pointer ${questionNumber > 1 ? 'visible' : 'invisible'}`}
             onClick={() => setQuestionNumber(questionNumber-1)}
