@@ -2,10 +2,12 @@
 const admin = require('firebase-admin');
 const serviceAccount = require('./serviceAccountKey.json');
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://workflow-edu.firebaseio.com'
-});
+if (admin.apps.length === 0) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: 'https://workflow-edu.firebaseio.com'
+  });
+}
 
 // As an admin, the app has access to read and write all data, regardless of Security Rules
 const db = admin.firestore();
