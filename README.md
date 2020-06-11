@@ -3,6 +3,7 @@
 ## TODO
 * Create real rules to lock down data read/writes to [Firestore](https://console.firebase.google.com/u/2/project/workflow-edu/database/firestore/rules) 
 * The Gatsby way to pull in data would be with GraphQL sources and there is a plugin for firestore, but not sure i could input new entries with that
+* IMPORTANT - got to remove firebase service key from version control. Can it be stored in Netlify environment variables?
 
 # Notes from starter project:
 A JavaScript function intercepts form submits and sends them using `fetch` instead. There's also a helper to get field values using their name, [see `getFieldValue(form, fieldName)` on GitHub](https://github.com/HugoDF/netlify-lambda-tailwind-static-starter/blob/fc936bd76f201c90ade459a9ab73bf19fdab6aec/public/index.html#L65).
