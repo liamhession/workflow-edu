@@ -6,9 +6,8 @@
   "scripts": {
     "prestart": "yarn build:tw",
     "start": "netlify dev",
-    "build": "yarn build:css",
-    "build:css": "yarn build:tw",
-    "build:tw": "tailwind build src/styles.css -o public/styles.css",
+    "build": "yarn build:gatsby",
+    "build:gatsby": "gatsby build",
     "postbuild:css": "purgecss -c purgecss.config.js -o public",
     "postinstall": "netlify-lambda install",
     "lint": "xo src",
@@ -16,7 +15,8 @@
   },
   "keywords": [
     "netlify",
-    "lambda"
+    "lambda",
+    "gatsby"
   ],
   "author": "Liam Hession",
   "license": "MIT",
