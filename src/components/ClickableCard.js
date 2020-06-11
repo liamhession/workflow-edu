@@ -1,11 +1,27 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types'
+import { getLocalItem, setLocalItem } from '../utils/localStorage';
 
 const ClickableCard = ({
   children,
   className,
+  responseKey,
 }) => {
   const [isClicked, setIsClicked] = useState(false);
+
+  // Update the contents of localStorage's list of their preferred items to include/not include this
+  const onCardClick = () => {
+    const nowClicked = !isClicked;
+    setIsClicked(nowClicked);
+
+    const onboardingResponses = getLocalItem('onboardingResponses');
+    if (nowClicked) {
+      onboardingResponses[responseKey] = true;
+    } else {
+      delete onboardingResponses[responseKey];
+    }
+    setLocalItem('onboardingResponses', onboardingResponses);
+  };
 
   return (
     <div
@@ -13,7 +29,7 @@ const ClickableCard = ({
       style={{
         boxShadow: '0 10px 28px rgba(0,0,0,.21)',
       }}
-      onClick={() => setIsClicked(!isClicked)}
+      onClick={onCardClick}
     >
       {children}
     </div>
@@ -23,6 +39,7 @@ const ClickableCard = ({
 ClickableCard.propTypes = {
   children: PropTypes.element.isRequired,
   className: PropTypes.string,
+  responseKey: PropTypes.string,
 };
 
 export default ClickableCard;

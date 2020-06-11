@@ -14,15 +14,22 @@ exports.handler = async (event, context) => {
   try {
     const newOnboardingResponse = db.collection('onboardingResponses').doc();
 
-    const createdResponse = newOnboardingResponse.set({
-      userId: 'cdkd-4124-dkal',
-      userEmail: 'fake@me.com',
-      favoriteMethods: ['walk', 'meditation'],      
-    });
+    // Take the object passed in as POST body
+    const submittedResponse = JSON.parse(event.body);
+
+    // Get user details if they're logged in
+    const {identity, user} = context.clientContext;
+
+    const createdResponse = newOnboardingResponse.set(submittedResponse);
+    const createdResponseWithUserDetails = {
+      ...createdResponse,
+      user,
+      identity,
+    };
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ createdResponse }),
+      body: JSON.stringify({ createdResponseWithUserDetails }),
     }
   } catch (err) {
     return { statusCode: 500, body: err.toString() }

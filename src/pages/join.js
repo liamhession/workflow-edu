@@ -1,16 +1,57 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useIdentityContext } from 'react-netlify-identity-widget';
+import { getLocalItem, setLocalItem } from '../utils/localStorage';
 import ClickableCard from '../components/ClickableCard';
 import Card from '../components/Card';
 import Icon from '../components/Icon';
-// import Layout from '../components/layout/Layout';
+import Layout from '../components/layout/Layout';
 
+const NUMBER_OF_QUESTIONS = 3;
 const getQuestionComponent = (number) => {
   if (number === 1) return <QuestionOne />;
   else if (number === 2) return <QuestionTwo />;
+  else if (number === 3) return <SubmitPanel />;
+};
+
+const SubmitPanel = () => {
+  const identity = useIdentityContext();
+  const isLoggedIn = identity && identity.isLoggedIn;
+
+  const submitResponses = () => {
+    if (!isLoggedIn) return;
+
+    const responses = getLocalItem('onboardingResponses');
+    fetch('/.netlify/functions/write-firestore', {
+      body: JSON.stringify(responses),
+      method: 'POST',
+    });
+  };
+
+  return (
+    <section id="submit-responses" className="pt-8 lg:pb-20 lg:pt-18">
+      <div className="flex-1 px-3">
+        <Card className="mb-8 bg-gray-100 px-8 py-8 text-center">
+          <h2 className="text-xl lg:text-2xl font-semibold">Thanks for sharing with us, click below to submit</h2>
+          <button className={`rounded bg-green-400 p-2 ${isLoggedIn?'cursor-pointer':'cursor-default'}`}
+            type="submit"
+            onClick={submitResponses}>
+            {isLoggedIn ? 'Submit' : 'Please Sign Up Above Before Submitting'}
+          </button>
+        </Card>
+      </div>
+    </section>
+  );
 };
 
 const QuestionTwo = () => {
+  const handleChange = (event) => {
+    const latestInspirationText = event.target.value;
+
+    const onboardingResponses = getLocalItem('onboardingResponses');
+    onboardingResponses['whatInspiresMe'] = latestInspirationText;
+    setLocalItem('onboardingResponses', onboardingResponses);
+  };
   return (
     <section id="question-two" className="pt-8 lg:pb-20 lg:pt-18">
       <div className="container mx-auto text-center">
@@ -22,9 +63,8 @@ const QuestionTwo = () => {
                 <textarea
                   style={{ width: '100%', height: '200px' }}
                   placeholder="Give as much detail as you like here..."
+                  onChange={handleChange}
                 ></textarea>
-                <br />
-                <button type="submit">Submit</button>
               </div>
             </Card>
           </div>
@@ -41,7 +81,7 @@ const QuestionOne = () => {
         <h2 className="text-xl lg:text-2xl font-semibold">When you feel like you're being completely flooded with work, which of these activities do you turn to, to regain composure? You can also select ones you would consider trying sometime.</h2>
         <div className="flex flex-col sm:flex-row sm:-mx-3 mt-12">
           <div className="flex-1 px-3">
-            <ClickableCard className="mb-8">
+            <ClickableCard className="mb-8" responseKey="walk">
               <div className="font-semibold text-xl text-center mx-auto">
                 <div className="inline-block align-middle m-2"><Icon kind="walk" size="30" /></div>
                 <div className="inline-block align-middle">Going for a walk</div>
@@ -52,7 +92,7 @@ const QuestionOne = () => {
             </ClickableCard>
           </div>
           <div className="flex-1 px-3">
-            <ClickableCard className="mb-8">
+            <ClickableCard className="mb-8" responseKey="conversation">
               <div className="font-semibold text-xl text-center mx-auto">
                 <div className="inline-block align-middle m-2"><Icon kind="conversation" size="30" /></div>
                 <div className="inline-block align-middle">Venting to another person</div>
@@ -63,7 +103,7 @@ const QuestionOne = () => {
             </ClickableCard>
           </div>
           <div className="flex-1 px-3">
-            <ClickableCard className="mb-8">
+            <ClickableCard className="mb-8" responseKey="meditation">
               <div className="font-semibold text-xl text-center mx-auto">
                 <div className="inline-block align-middle m-2"><Icon kind="yin-yang" size="30" /></div>
                 <div className="inline-block align-middle">Meditation</div>
@@ -103,7 +143,7 @@ const JoinPage = () => {
           <div className={`w-8 cursor-pointer ${questionNumber > 1 ? 'visible' : 'invisible'}`}
             onClick={() => setQuestionNumber(questionNumber-1)}
           >{'<prev'}</div>
-          <div className="w-8 cursor-pointer"
+          <div className={`w-8 cursor-pointer ${questionNumber < NUMBER_OF_QUESTIONS ? 'visible' : 'invisible'}`}
             onClick={() => setQuestionNumber(questionNumber+1)}
           >{'next>'}</div>
         </div>

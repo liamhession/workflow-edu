@@ -16,7 +16,7 @@ const Layout = ({ mainStyle, children }) => {
         {" "}
         Login Status:
         <button className="btn" onClick={() => setDialogShown(true)}>
-          {isLoggedIn ? `Hello ${name}, Log out here!` : "LOG IN"}
+          {isLoggedIn ? `Hello ${name}, Log out here!` : "SIGN UP / LOG IN"}
         </button>
       </nav>
       <main style={mainStyle}>{children}</main>
