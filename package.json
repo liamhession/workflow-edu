@@ -8,6 +8,7 @@
     "start": "netlify dev",
     "build": "yarn build:gatsby",
     "build:gatsby": "gatsby build",
+    "build:tw": "tailwind build src/styles.css -o public/styles.css",
     "postbuild:css": "purgecss -c purgecss.config.js -o public",
     "postinstall": "netlify-lambda install",
     "lint": "xo src",

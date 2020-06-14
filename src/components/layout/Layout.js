@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import IdentityModal, { useIdentityContext } from 'react-netlify-identity-widget';
+import IdentityModal, { useIdentityContext } from '../IdentityWidget';
 import 'react-netlify-identity-widget/styles.css';
 
 const Layout = ({ mainStyle, children }) => {
