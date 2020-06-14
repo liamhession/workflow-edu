@@ -10,6 +10,12 @@ module.exports = {
       xl: '1280px',
     },
     colors: {
+      primary: {
+        lighter: 'hsl(96, 73%, 67%)',
+        default: 'hsl(96, 73%, 57%)',
+        darker: 'hsl(96, 73%, 44%)',
+      },
+
       transparent: 'transparent',
 
       black: '#000',

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useIdentityContext } from 'react-netlify-identity-widget';
 import { getLocalItem, setLocalItem } from '../utils/localStorage';
+import { Signup } from '../components/StandaloneSignup';
 import ClickableCard from '../components/ClickableCard';
 import Card from '../components/Card';
 import Icon from '../components/Icon';
@@ -18,16 +19,14 @@ const getQuestionComponent = (number) => {
 const SubmitPanel = () => {
   const [submitted, setSubmitted] = useState(false);
 
-  const identity = useIdentityContext();
-  const isLoggedIn = identity && identity.isLoggedIn;
-
-  const submitResponses = () => {
-    if (!isLoggedIn) return;
-
+  const submitResponses = (user) => {
     const responses = getLocalItem('onboardingResponses');
 
-    // If they are logged in, we can grab the user details from identity, add that to the submitted object
-    responses.user = identity.user;
+    // This being the callback for onSubmit, we are passed the user details 
+    responses.user = user;
+
+    // Add a time of submission field so we can sort by that
+    responses.timeSubmitted = Date.now();
 
     fetch('/.netlify/functions/write-firestore', {
       body: JSON.stringify(responses),
@@ -41,12 +40,17 @@ const SubmitPanel = () => {
     <section id="submit-responses" className="pt-8 lg:pb-20 lg:pt-18">
       <div className="flex-1 px-3">
         <Card className="mb-8 bg-gray-100 px-8 py-8 text-center">
-          <h2 className="text-xl lg:text-2xl font-semibold">Thanks for sharing with us, click below to submit</h2>
-          <button className={`rounded bg-green-400 p-2 ${isLoggedIn?'cursor-pointer':'cursor-default'}`}
-            type="submit"
-            onClick={submitResponses}>
-            {isLoggedIn ? (submitted ? 'Thanks!' : 'Submit') : 'Please Sign Up Above Before Submitting'}
-          </button>
+          { submitted
+          ?
+          <div>
+            <h2 className="text-xl lg:text-2xl font-semibold">Thanks! Check your inbox for a confirmation email. Then we'll be able to start designing some workflows!</h2>
+          </div>
+          :
+          <div>
+            <h2 className="text-xl lg:text-2xl font-semibold">Thanks for sharing with us. Enter your signup details to be a part of our community, then click below to submit.</h2>
+            <Signup onSignup={submitResponses} />
+          </div>
+          }
         </Card>
       </div>
     </section>
@@ -141,7 +145,7 @@ const QuestionOne = () => {
           <div className="flex-1 px-3">
             <ClickableCard className="mb-8" responseKey="walk">
               <div className="font-semibold text-xl text-center mx-auto">
-                <div className="inline-block align-middle m-2"><Icon kind="walk" size="30" /></div>
+                <div className="inline-block align-middle m-2"><Icon kind="walk" size={30} /></div>
                 <div className="inline-block align-middle">Going for a walk</div>
               </div>
               <p className="mt-4">
@@ -152,7 +156,7 @@ const QuestionOne = () => {
           <div className="flex-1 px-3">
             <ClickableCard className="mb-8" responseKey="conversation">
               <div className="font-semibold text-xl text-center mx-auto">
-                <div className="inline-block align-middle m-2"><Icon kind="conversation" size="30" /></div>
+                <div className="inline-block align-middle m-2"><Icon kind="conversation" size={30} /></div>
                 <div className="inline-block align-middle">Venting to another person</div>
               </div>
               <p className="mt-4">
@@ -163,7 +167,7 @@ const QuestionOne = () => {
           <div className="flex-1 px-3">
             <ClickableCard className="mb-8" responseKey="meditation">
               <div className="font-semibold text-xl text-center mx-auto">
-                <div className="inline-block align-middle m-2"><Icon kind="yin-yang" size="30" /></div>
+                <div className="inline-block align-middle m-2"><Icon kind="yin-yang" size={30} /></div>
                 <div className="inline-block align-middle">Meditation</div>
               </div>
               <p className="mt-4">

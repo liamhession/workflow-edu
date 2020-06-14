@@ -1,28 +1,26 @@
 import React, { useState } from 'react';
+import Header from './Header';
 import IdentityModal, { useIdentityContext } from '../IdentityWidget';
 import 'react-netlify-identity-widget/styles.css';
 
 const Layout = ({ mainStyle, children }) => {
   const identity = useIdentityContext(); // see https://github.com/sw-yx/react-netlify-identity for api of this identity object
   const [dialogShown, setDialogShown] = useState(false);
-  const name =
-    (identity && identity.user && identity.user.user_metadata && identity.user.user_metadata.name) || "NoName";
 
   console.log(JSON.stringify(identity));
   const isLoggedIn = identity && identity.isLoggedIn;
   return (
     <>
-      <nav style={{ background: "green" }}>
-        {" "}
-        Login Status:
-        <button className="btn" onClick={() => setDialogShown(true)}>
-          {isLoggedIn ? `Hello ${name}, Log out here!` : "SIGN UP / LOG IN"}
-        </button>
-      </nav>
+      <Header isLoggedIn={isLoggedIn} clickLogin={() => setDialogShown(true)} />
       <main style={mainStyle}>{children}</main>
       <IdentityModal
         showDialog={dialogShown}
         onCloseDialog={() => setDialogShown(false)}
+
+        // Can add these and they will go through
+        onLogin={(user = {}) => console.log('hello ', user.user_metadata)}
+        // onSignup={(user) => console.log('welcome ', user!.user_metadata)}
+        // onLogout={() => console.log('bye ', name)}
       />
     </>
   );
