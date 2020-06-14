@@ -8,18 +8,18 @@ const Header = ({
 }) => (
   <header className="sticky top-0 bg-white shadow">
     <div className="container flex flex-row justify-between items-center mx-auto py-2 px-4">
-      <Link to="/">
-        <div className="flex items-center">
-          <div className="w-36 mr-3">
-            <span className="text-primary-darker text-lg lg:text-2xl">Workflow Edu</span>
-          </div>
-          <div className="hidden lg:block ml-8">
-            <Link to="/#mission">
-              <span className="text-primary text-md">Our Mission</span>
-            </Link>
-          </div>
+      <div className="flex items-center">
+        <div className="w-36 mr-3">
+          <Link to="/">
+            <span className="text-primary-darker text-lg sm:text-2xl">Workflow Edu</span>
+          </Link>
         </div>
-      </Link>
+        <div className="hidden sm:block ml-8">
+          <Link to="/#mission">
+            <span className="text-primary text-md">Our Mission</span>
+          </Link>
+        </div>
+      </div>
       <div>
         { isLoggedIn
         ?
