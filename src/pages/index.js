@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from '@reach/router';
 import Layout from '../components/layout/Layout';
 import Button from '../components/Button';
 import Card from '../components/Card';
@@ -22,7 +23,9 @@ const HomePage = () => (
           Joining your peers on Workflow Edu means helping each other, and eventually students, find the right workflow for every situation.
           </p>
           <p className="mt-8 md:mt-12">
-            <Button className="py-1 px-2 sm:py-3 sm:px-8">Get Started</Button>
+            <Link to="/join">
+              <Button className="py-1 px-2 sm:py-3 sm:px-8">Get Started</Button>
+            </Link>
           </p>
         </div>
         {/* Setting a height limit for these wrapper elements nullifies the effect of the svg height being huge */}
