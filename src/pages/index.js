@@ -54,7 +54,7 @@ const HomePage = () => (
             <Card className="mb-8">
               <p className="font-semibold text-xl">Enabling Exploration, Experimentation</p>
               <p className="mt-4">
-                Given the huge variety of approaches taken to work most effectively, the likelihood is low that you'll find a Workflow that resonates with you on day one. Our tools for remixing a Workflow, plus sharing and search, allow for the huge variety of approaches to be expressed by one person and discovered by another.
+                Given the huge variety of approaches taken to work most effectively, the likelihood is low that you'll find a Workflow that resonates with you on day one. Our tools for remixing a Workflow, plus sharing and search, allow people to discover the specific, particular approach that fits them perfectly.
               </p>
             </Card>
           </div>
@@ -70,7 +70,7 @@ const HomePage = () => (
             <Card className="mb-8">
               <p className="font-semibold text-xl">Only "Opt-On" Content</p>
               <p className="mt-4">
-                Nothing is more important than ensuring nothing that could have a negative effect gets put in front of students. That's why each Workflow must be explicitly admitted onto the platform by the community, a purposefully higher standard than those used on YouTube and other platforms. 
+                Priority number one is ensuring that nothing that could have a negative effect gets put in front of students. That's why each Workflow must be explicitly admitted onto the platform by the community, a purposefully higher standard than those used on YouTube and other platforms. 
               </p>
             </Card>
           </div>
