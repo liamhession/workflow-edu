@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useIdentityContext } from 'react-netlify-identity-widget';
-import { getLocalItem, setLocalItem } from '../utils/localStorage';
+import { getLocalItem, setLocalItem, removeLocalItem } from '../utils/localStorage';
 import { Signup } from '../components/StandaloneSignup';
 import ClickableCard from '../components/ClickableCard';
 import Card from '../components/Card';
 import Icon from '../components/Icon';
+import Button from '../components/Button';
 import Layout from '../components/layout/Layout';
 
 const NUMBER_OF_QUESTIONS = 4;
@@ -37,21 +37,23 @@ const SubmitPanel = () => {
   };
 
   return (
-    <section id="submit-responses" className="pt-8 lg:pb-20 lg:pt-18">
-      <div className="flex-1 px-3">
-        <Card className="mb-8 bg-gray-100 px-8 py-8 text-center">
-          { submitted
-          ?
-          <div>
-            <h2 className="text-xl lg:text-2xl font-semibold">Thanks! Check your inbox for a confirmation email. Then we'll be able to start designing some workflows!</h2>
-          </div>
-          :
-          <div>
-            <h2 className="text-xl lg:text-2xl font-semibold">Thanks for sharing with us. Enter your signup details to be a part of our community, then click below to submit.</h2>
-            <Signup onSignup={submitResponses} />
-          </div>
-          }
-        </Card>
+    <section id="submit-responses" className="px-6 pt-8 lg:pb-20 lg:pt-18">
+      <div className="container mx-auto text-center">
+        <div className="flex flex-col">
+          <Card className="mb-8 bg-gray-100 px-8 py-8">
+            { submitted
+            ?
+            <div>
+              <h2 className="text-xl lg:text-2xl font-semibold">Thanks! Check your inbox for a confirmation email. Then we'll be able to start designing some Workflows!</h2>
+            </div>
+            :
+            <div>
+              <h2 className="text-xl lg:text-2xl font-semibold">Thanks for sharing with us. Complete your user registration below, and you'll become a part of the community, plus your responses will get saved in your user account.</h2>
+              <Signup onSignup={submitResponses} />
+            </div>
+            }
+          </Card>
+        </div>
       </div>
     </section>
   );
@@ -59,10 +61,10 @@ const SubmitPanel = () => {
 
 const QuestionThree = () => {
   return (
-    <section id="question-three" className="pt-8 lg:pb-20 lg:pt-18">
+    <section id="question-three" className="px-6 pt-8 lg:pb-20 lg:pt-18">
       <div className="container mx-auto text-center">
-        <h2 className="text-xl lg:text-2xl font-semibold mb-10">Phrase(s) to best describe your current communication preferences:</h2>
-        <div className="flex flex-col sm:flex-row sm:-mx-3 mt-2">
+        <h2 className="text-xl lg:text-2xl font-semibold">Phrase(s) to best describe your current communication preferences:</h2>
+        <div className="flex flex-col sm:flex-row sm:-mx-3 mt-10">
           <div className="flex-1 px-3">
             <ClickableCard className="mb-8" responseKey="communication-detailed-emails">
               <div className="font-semibold text-xl text-center mx-auto">
@@ -115,15 +117,16 @@ const QuestionTwo = () => {
     setLocalItem('onboardingResponses', onboardingResponses);
   };
   return (
-    <section id="question-two" className="pt-8 lg:pb-20 lg:pt-18">
+    <section id="question-two" className="px-6 pt-8 lg:pb-20 lg:pt-18">
       <div className="container mx-auto text-center">
         <h2 className="text-xl lg:text-2xl font-semibold">When are you most inspired? What's the most surefire spark for your inspiration?</h2>
-        <div className="flex flex-col sm:flex-row sm:-mx-3 mt-12">
+        <div className="flex flex-col sm:flex-row sm:-mx-3 mt-10">
           <div className="flex-1 px-3">
-            <Card className="mb-8 bg-gray-100 px-8 py-8">
+            <Card className="mb-8 bg-gray-100 px-4 py-4">
               <div className="font-semibold text-xl text-center mx-auto">
                 <textarea
-                  style={{ width: '100%', height: '200px' }}
+                  className="p-2 w-full h-48"
+                  // style={{ width: '100%', height: '200px' }}
                   placeholder="Give as much detail as you like here..."
                   onChange={handleChange}
                 ></textarea>
@@ -138,10 +141,10 @@ const QuestionTwo = () => {
 
 const QuestionOne = () => {
   return (
-    <section id="question-one" className="pt-8 lg:pb-20 lg:pt-18">
+    <section id="question-one" className="px-6 pt-8 lg:pb-20 lg:pt-18">
       <div className="container mx-auto text-center">
         <h2 className="text-xl lg:text-2xl font-semibold">When you feel like you're being completely flooded with work, which of these activities do you turn to, to regain composure? You can also select ones you would consider trying sometime.</h2>
-        <div className="flex flex-col sm:flex-row sm:-mx-3 mt-12">
+        <div className="flex flex-col sm:flex-row sm:-mx-3 mt-10">
           <div className="flex-1 px-3">
             <ClickableCard className="mb-8" responseKey="walk">
               <div className="font-semibold text-xl text-center mx-auto">
@@ -182,6 +185,11 @@ const QuestionOne = () => {
 };
 
 const JoinPage = () => {
+  // Clear localStorage of any onboardingResponses that exist from previous runs
+  useEffect(() => {
+    removeLocalItem('onboardingResponses');
+  }, []); // only run it when these variables change, i.e. only on first load
+
   const [questionNumber, setQuestionNumber] = useState(1);
 
   return (
@@ -202,12 +210,12 @@ const JoinPage = () => {
       <section id="question-header" className="pt-10">
         {questionNumber < NUMBER_OF_QUESTIONS && <h2 className="text-center text-3xl lg:text-4xl xl:text-5xl font-bold">Question {questionNumber}</h2>}
         <div className="flex justify-between px-16">
-          <div className={`w-8 cursor-pointer ${questionNumber > 1 ? 'visible' : 'invisible'}`}
+          <Button className={`py-1 px-2 sm:py-2 sm:px-4 ${questionNumber > 1 ? 'visible' : 'invisible'}`}
             onClick={() => setQuestionNumber(questionNumber-1)}
-          >{'<prev'}</div>
-          <div className={`w-8 cursor-pointer ${questionNumber < NUMBER_OF_QUESTIONS ? 'visible' : 'invisible'}`}
+          >{'<prev'}</Button>
+          <Button className={`py-1 px-2 sm:py-2 sm:px-4 ${questionNumber < NUMBER_OF_QUESTIONS  ? 'visible' : 'invisible'}`}
             onClick={() => setQuestionNumber(questionNumber+1)}
-          >{'next>'}</div>
+          >{'next>'}</Button>
         </div>
       </section>
       {getQuestionComponent(questionNumber)}

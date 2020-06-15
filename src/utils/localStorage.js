@@ -8,5 +8,5 @@ export const getLocalItem = (key) =>
 export const setLocalItem = (key, object) =>
   isBrowser() && window.localStorage.setItem(key, JSON.stringify(object));
 
-export const clearLocalStorage = () =>
-  isBrowser() && window.localStorage.clear();
+export const removeLocalItem = (key) =>
+  isBrowser() && window.localStorage.removeItem(key);

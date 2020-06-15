@@ -10,7 +10,7 @@ const Layout = ({ mainStyle, children }) => {
   console.log(JSON.stringify(identity));
   const isLoggedIn = identity && identity.isLoggedIn;
   return (
-    <>
+    <div className='min-h-screen'>
       <Header isLoggedIn={isLoggedIn} clickLogin={() => setDialogShown(true)} />
       <main style={mainStyle}>{children}</main>
       <IdentityModal
@@ -22,7 +22,7 @@ const Layout = ({ mainStyle, children }) => {
         // onSignup={(user) => console.log('welcome ', user!.user_metadata)}
         // onLogout={() => console.log('bye ', name)}
       />
-    </>
+    </div>
   );
 };
 

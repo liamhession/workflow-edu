@@ -38,8 +38,8 @@ const HomePage = () => (
       </div>
     </section>
     <section id="message" className="pt-20 lg:pt-32">
-      <div className="container mx-auto text-center">
-        <h2 className="text-3xl lg:text-5xl font-semibold">We will get through this together.</h2>
+      <div className="container mx-auto px-8 text-justify text-lg">
+        <h2 className="text-3xl lg:text-5xl font-semibold text-center tracking-wide">We will get through this together.</h2>
         <p className="mt-4">As we process all that is happening to us as individuals this summer, as educators we are tasked with rethinking how changes to our instructional environments will impact our students. Some of this is tactical. Much more is emotional.</p>
         <p className="mt-4">It’s OK not to feel OK about everything. In fact, recognizing our social and emotional state is a precondition to learning, growth and project completion. This is especially true for our students.</p>
         <p className="mt-4">We invite you to participate in a facilitated conversation where you share with our community how you are approaching the project of rethinking your fall 2020 classroom.</p>
@@ -47,32 +47,32 @@ const HomePage = () => (
       </div>
     </section>
     <section id="mission" className="pt-20 lg:pt-32">
-      <div className="container mx-auto text-center">
+      <div className="container mx-auto px-8 text-center">
         <h2 className="text-3xl lg:text-5xl font-semibold">Our Mission</h2>
-        <h3 className="text-lg lg:text-xl font-normal text-gray-700">
+        <h3 className="text-lg lg:text-xl font-normal text-gray-700 mt-4">
           Workflow Edu is a repository of resources related to planning your hour, day, or year. The guidance from any given Workflow might draw from theories around executive functioning, social and emotional learning, or just personal intuition. The goal in using these Workflows is to <span className="text-gray-600 italic">feel good and function well</span>.
         </h3>
-        <div className="flex flex-col md:flex-row md:-mx-3 mt-12">
+        <div className="flex flex-col mt-12 lg:flex-row lg:-mx-3">
           <div className="flex-1 px-3">
             <Card className="mb-8">
-              <p className="font-semibold text-xl">Enabling Exploration, Experimentation</p>
-              <p className="mt-4">
+              <p className="font-semibold text-xl tracking-wide">Enabling Exploration, Experimentation</p>
+              <p className="mt-4 text-lg">
                 Given the huge variety of approaches taken to work most effectively, the likelihood is low that you'll find a Workflow that resonates with you on day one. Our tools for remixing a Workflow, plus sharing and search, allow people to discover the specific, particular approach that fits them perfectly.
               </p>
             </Card>
           </div>
           <div className="flex-1 px-3">
             <Card className="mb-8">
-              <p className="font-semibold text-xl">Community Contributions</p>
-              <p className="mt-4">
+              <p className="font-semibold text-xl tracking-wide">Community Contributions</p>
+              <p className="mt-4 text-lg">
                 Every member of the Workflow Edu community is a potential contributor. That unique workflow you use to find motivation on those days where it feels like nothing is coming easy - it could be the next big one shared from person to person!
               </p>
             </Card>
           </div>
           <div className="flex-1 px-3">
             <Card className="mb-8">
-              <p className="font-semibold text-xl">Only "Opt-On" Content</p>
-              <p className="mt-4">
+              <p className="font-semibold text-xl tracking-wide">Only "Opt-On" Content</p>
+              <p className="mt-4 text-lg">
                 Priority number one is ensuring that nothing that could have a negative effect gets put in front of students. That's why each Workflow must be explicitly admitted onto the platform by the community, a purposefully higher standard than those used on YouTube and other platforms. 
               </p>
             </Card>

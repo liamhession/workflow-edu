@@ -33,13 +33,13 @@ export function Signup({ onSignup }) { //: SignupProps) {
     >
       <div className="RNIW_formGroup" key="username">
         <label>
-          <VisuallyHidden>Enter your name</VisuallyHidden>
+          <VisuallyHidden>Enter your username</VisuallyHidden>
           <input
             id="username"
             className="RNIW_formControl"
             type="name"
             name="username"
-            placeholder="Name"
+            placeholder="User Name"
             autoCapitalize="off"
             required={true}
           />
