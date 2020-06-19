@@ -1,0 +1,1 @@
+June 18: min-h-screen in Layout component make sense? 

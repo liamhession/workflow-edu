@@ -24,7 +24,7 @@ export function Signup({ onSignup }) { //: SignupProps) {
         if (onSignup) onSignup(user);
       })
       .catch((err) => void console.error(err) || setMsg('Error: ' + err.message));
-  }
+  };
   return (
     <form
       ref={formRef}

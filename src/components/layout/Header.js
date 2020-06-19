@@ -6,7 +6,7 @@ const Header = ({
   isLoggedIn,
   clickLogin,
 }) => (
-  <header className="sticky top-0 bg-white shadow">
+  <header className="sticky top-0 z-50 bg-white shadow">
     <div className="container flex flex-row justify-between items-center mx-auto py-2 px-4">
       <div className="flex items-center">
         <div className="w-36 mr-3">
