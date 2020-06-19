@@ -5,7 +5,7 @@ const ProfilePage = () => {
   const [isOverlayOn, setIsOverlayOn] = React.useState(true);
 
   return (
-    <Layout>
+    <Layout isProfilePage={true}>
       <div id="bring-back-overlay" className={(isOverlayOn ? "hidden" : "fixed top-0 pt-12 sm:pt-16")+" pb-1 z-20 bg-gray-300 w-full text-center cursor-pointer underline"} onClick={() => setIsOverlayOn(true)}>Show new user message again</div>
       <section id="thanks-and-invitation" className={(isOverlayOn ? "" : "opacity-0 ")+"absolute top-0 min-h-screen z-10 pt-20 sm:pt-32 md:pt-40 text-lg px-8 bg-white bg-opacity-50"}>
         <div className="text-2xl">We are excited to have you join our early group of users!</div>

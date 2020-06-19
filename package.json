@@ -23,6 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "@reach/dialog": "^0.10.3",
+    "@reach/router": "^1.3.3",
     "@reach/tabs": "^0.10.3",
     "@reach/visually-hidden": "^0.10.2",
     "gatsby": "^2.23.3",

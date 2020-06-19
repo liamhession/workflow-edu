@@ -4,6 +4,7 @@ import Button from '../Button';
 
 const Header = ({
   isLoggedIn,
+  isProfilePage,
   clickLogin,
 }) => (
   <header className="sticky top-0 z-50 bg-white shadow">
@@ -21,7 +22,7 @@ const Header = ({
         </div>
       </div>
       <div>
-        { isLoggedIn
+        { (isLoggedIn || isProfilePage)
         ?
           <Link to="/profile">
             <Button className="text-sm py-1 px-2 sm:py-3 sm:px-8">Profile</Button>

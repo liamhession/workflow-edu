@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from '@reach/router';
 import PropTypes from 'prop-types';
 import { getLocalItem, setLocalItem, removeLocalItem } from '../utils/localStorage';
 import { Signup } from '../components/StandaloneSignup';
@@ -17,6 +18,7 @@ const getQuestionComponent = (number) => {
 };
 
 const SubmitPanel = () => {
+  const navigate = useNavigate();
   const [submitted, setSubmitted] = useState(false);
 
   const submitResponses = (user) => {
@@ -34,6 +36,8 @@ const SubmitPanel = () => {
     });
 
     setSubmitted(true);
+
+    navigate('/profile');
   };
 
   return (
@@ -48,7 +52,7 @@ const SubmitPanel = () => {
             </div>
             :
             <div>
-              <h2 className="text-xl lg:text-2xl font-semibold">Thanks for sharing with us. Complete your user registration below, and you'll become a part of the community, plus your responses will get saved in your user account.</h2>
+              <h2 className="text-xl lg:text-2xl font-semibold">Thanks for sharing with us. Complete your user registration below, to join our community and associate your responses with your user account.</h2>
               <Signup onSignup={submitResponses} />
             </div>
             }
