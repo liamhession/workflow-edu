@@ -4,8 +4,6 @@ import Button from '../Button';
 
 const Header = ({
   isLoggedIn,
-  isProfilePage,
-  clickLogin,
 }) => (
   <header className="sticky top-0 z-50 bg-white shadow">
     <div className="container flex flex-row justify-between items-center mx-auto py-2 px-4">
@@ -22,13 +20,15 @@ const Header = ({
         </div>
       </div>
       <div>
-        { (isLoggedIn || isProfilePage)
+        { isLoggedIn
         ?
           <Link to="/profile">
             <Button className="text-sm py-1 px-2 sm:py-3 sm:px-8">Profile</Button>
           </Link>
         :
-          <Button className="text-sm py-1 px-2 sm:py-3 sm:px-8" onClick={() => { console.log('clicked'); clickLogin(); }}>Sign Up</Button>
+          <Link to="/join">
+            <Button className="text-sm py-1 px-2 sm:py-3 sm:px-8">Sign Up</Button>
+          </Link>
         }
       </div>
     </div>

@@ -3,7 +3,7 @@ import Header from './Header';
 import IdentityModal, { useIdentityContext } from '../IdentityWidget';
 import 'react-netlify-identity-widget/styles.css';
 
-const Layout = ({ mainStyle, children, isProfilePage = false }) => {
+const Layout = ({ mainStyle, children }) => {
   const identity = useIdentityContext(); // see https://github.com/sw-yx/react-netlify-identity for api of this identity object
   const [dialogShown, setDialogShown] = useState(false);
 
@@ -11,7 +11,7 @@ const Layout = ({ mainStyle, children, isProfilePage = false }) => {
   const isLoggedIn = identity && identity.isLoggedIn;
   return (
     <div className='min-h-screen'>
-      <Header isProfilePage={isProfilePage} isLoggedIn={isLoggedIn} clickLogin={() => setDialogShown(true)} />
+      <Header isLoggedIn={isLoggedIn} />
       <main style={mainStyle}>{children}</main>
       <IdentityModal
         showDialog={dialogShown}
