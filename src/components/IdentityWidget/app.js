@@ -17,16 +17,16 @@ function LoggedOutScreen(props) {  //: AuthProps) {
     <div>
       <Tabs defaultIndex={0}>
         <TabList className="RNIW_header">
-          <Tab className="RNIW_btn RNIW_btnHeader">Sign Up</Tab>
           <Tab className="RNIW_btn RNIW_btnHeader">Login</Tab>
+          <Tab className="RNIW_btn RNIW_btnHeader">Sign Up</Tab>
         </TabList>
 
         <TabPanels>
           <TabPanel>
-            <Signup onSignup={props.onSignup} />
+            <Login onLogin={props.onLogin} />
           </TabPanel>
           <TabPanel>
-            <Login onLogin={props.onLogin} />
+            <Signup onSignup={props.onSignup} />
           </TabPanel>
         </TabPanels>
       </Tabs>

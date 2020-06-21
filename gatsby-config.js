@@ -4,7 +4,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-netlify-identity`,
       options: {
-        url: `https://boring-brown-d07175.netlify.app/`
+        url: `https://boring-brown-d07175.netlify.app`
       }
     }
   ]
