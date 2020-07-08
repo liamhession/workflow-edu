@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Layout from '../components/layout/Layout';
+import Button from '../components/Button';
 
-const Example1Page = () => {
+const MemoryJogPage = () => {
 
   const [nameOfClass, setNameOfClass] = useState('Class Name');
   const [initialPrompt, setInitialPrompt] = useState('While that homework is fresh in your mind, take a minute or two to write down some notes about what we are currently working on in this class. These notes will be shared with you just before class tomorrow to help orient yourself just before class starts.');
@@ -77,7 +78,7 @@ const Example1Page = () => {
             </label>
           </div>
           <div className="button-container w-full text-center mt-1">
-            <button type="submit" className="px-2 py-1 rounded bg-gray-400">Submit</button>
+            <Button>Submit</Button>
           </div>
         </div>
       </section>
@@ -85,4 +86,4 @@ const Example1Page = () => {
   );
 };
 
-export default Example1Page;
+export default MemoryJogPage;
