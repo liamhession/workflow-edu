@@ -5,20 +5,23 @@ import Button from '../components/Button';
 // Commentary on it?
 const TemplateWorkflowPage = () => {
   // Description of this workflow presented to the creating teacher
-  const headlineDescription = 'Multi-word Name For It - Subtitle name for it with detail';
+  const headlineDescription = 'Multi-word Label For It - Subtitle name for it with detail';
   const detailedDescription1 = 'Rationale or how it\'s used';
   const detailedDescription2 = 'Mechanics of how it appears or something else';
   // If any person, institution, or primary source material is to be credited
   const credit = '(Based off suggestions from X)';
 
-  // Workflow settings to be updated by creating teacher. Cover things like Headers within the workflow, and question prompts.
-  const thingName = 'e.g. Name of class:';
-  const [thing, setThing] = useState('Default');
+  // Page number lets us show different pages' content on the screen
+  const [page, setPage] = useState(1);
 
-  const bigTextName = 'e.g. Explanation of Workflow:';
+  // Workflow settings to be updated by creating teacher. Cover things like Headers within the workflow, and question prompts.
+  const headerLabel = 'e.g. Name of class:';
+  const [header, setHeader] = useState('Default');
+
+  const bigTextLabel = 'e.g. Explanation of Workflow:';
   const [bigText, setBigText] = useState('Lot of big text initially');
 
-  const prompt1Name = 'First prompt for student:';
+  const prompt1Label = 'First prompt for student:';
   const [prompt1, setPrompt1] = useState('What did you just work on?');
 
   return (
@@ -44,17 +47,17 @@ const TemplateWorkflowPage = () => {
         <div className="container flex flex-row mx-auto w-3/4">
           <div className="flex-col w-1/2 px-2">
             <label className="block">
-              <div className="workflow-settings-label pr-2">{thingName}</div>
-              <input type="text" className="w-full" value={thing} onChange={(event) => setThing(event.target.value)} />
+              <div className="workflow-settings-label pr-2">{headerLabel}</div>
+              <input type="text" className="w-full" value={header} onChange={(event) => setHeader(event.target.value)} />
             </label>
             <label className="block">
-              <div className="workflow-settings-label pr-2">{prompt1Name}</div>
+              <div className="workflow-settings-label pr-2">{prompt1Label}</div>
               <input type="text" className="w-full" value={prompt1} onChange={(event) => setPrompt1(event.target.value)} />
             </label>
           </div>
           <div className="flex-col w-1/2 px-2">
             <label>
-              <span className="workflow-settings-label block pr-2">{bigTextName}</span>
+              <span className="workflow-settings-label block pr-2">{bigTextLabel}</span>
               <textarea
                 className="w-full h-32 align-top"
                 value={bigText}
@@ -71,7 +74,8 @@ const TemplateWorkflowPage = () => {
           backgroundColor: '#DFDBE5',
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E")`,
         }}>
-          <p className="text-center text-lg font-bold">{thingName}</p>
+        { page === 1 &&
+          <p className="text-center text-lg font-bold">{header}</p>
           <p className="text-lg leading-snug">{bigText}</p>
           <div className="w-full">
             <label className="mx-2">
@@ -82,6 +86,7 @@ const TemplateWorkflowPage = () => {
           <div className="button-container w-full text-center mt-1">
             <Button>Submit</Button>
           </div>
+        }
         </div>
       </section>
     </Layout>
