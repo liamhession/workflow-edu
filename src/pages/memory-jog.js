@@ -2,27 +2,30 @@ import React, { useState } from 'react';
 import Layout from '../components/layout/Layout';
 import Button from '../components/Button';
 
+// These kinds of prompts are sometimes known as "exit tickets"
+//      Jen suggested that these should not center around "homework" because there's a reaction against homework
+
 const MemoryJogPage = () => {
 
   const [nameOfClass, setNameOfClass] = useState('Class Name');
-  const [initialPrompt, setInitialPrompt] = useState('While that homework is fresh in your mind, take a minute or two to write down some notes about what we are currently working on in this class. These notes will be shared with you just before class tomorrow to help orient yourself just before class starts.');
+  const [initialPrompt, setInitialPrompt] = useState('While everything you covered in class today is fresh in your mind, take a minute to write down some notes about what we are currently working on in this class. These notes will be shared with you just before class tomorrow to help orient yourself just before class starts.');
 
   // Two of the workflow settings allow the teacher to set the two prompts asked of a student getting this workflow
   const [prompt1, setPrompt1] = useState('What did you just work on?');
-  const [prompt2, setPrompt2] = useState('What do you want to ask the teacher in class?');
+  const [prompt2, setPrompt2] = useState('What information do you expect we will cover next class period?');
 
   return (
     <Layout>
       <section id="header" className="bg-yellow-200 py-6 md:py-12">
         <div className="container mx-auto px-8">
           <h1 className="text-green-600 text-xl lg:text-2xl xl:text-3xl font-bold leading-none">
-            Post-homework recap - For student to review before class
+            Post-class recap - For student to make notes to review before next class
           </h1>
           <p className="text-green-600 text-md lg:text-lg leading-none">
-            This workflow is assigned for when they have completed their homework for your class. It asks them to spend 1 minute noting down what they've worked on, and what they should expect to talk about during class.
+            This workflow is assigned to students for completing after class. It asks them to spend 1 minute noting down what they've just worked on, and what they should expect to talk about during next class.
           </p>
           <p className="text-green-600 text-md lg:text-lg leading-none">
-            They will be reminded to review these notes just before class starts, so that they are well-oriented before the start-of-period bell rings.
+            They will be reminded to review these notes they make just before the next class starts, so that they are well-oriented before the start-of-period bell rings.
           </p>
           <div className="info pt-2 text-gray-700 text-sm font-bold">(Based off suggestions from Natalia Wachli)</div>
         </div>
