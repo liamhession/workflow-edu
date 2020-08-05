@@ -7,7 +7,6 @@ const Layout = ({ mainStyle, children }) => {
   const identity = useIdentityContext(); // see https://github.com/sw-yx/react-netlify-identity for api of this identity object
   const [dialogShown, setDialogShown] = useState(false);
 
-  console.log(JSON.stringify(identity));
   const isLoggedIn = identity && identity.isLoggedIn;
   return (
     <div className='min-h-screen'>

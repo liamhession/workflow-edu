@@ -1,0 +1,14 @@
+{
+  "name": "create-new-student",
+  "version": "1.0.0",
+  "description": "Accepts a name, and generates a unique 5-letter code not currently in use by any other student in the process of activating.",
+  "main": "create-new-student.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Liam Hession",
+  "license": "ISC",
+  "dependencies": {
+    "firebase-admin": "^8.12.1"
+  }
+}

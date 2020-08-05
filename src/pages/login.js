@@ -7,7 +7,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   // Define redirect-to-profile page function, to be run on successful login or signup
-  const navigateToProfile = () => navigate('profile');
+  const navigateToProfile = () => navigate('/educator/profile');
 
   return (
     <Layout>

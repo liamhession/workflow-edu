@@ -1,7 +1,8 @@
 // Entrypoint for authenticated client-only routes within Workflow Edu
 import React, { useEffect } from 'react';
 import { Router } from '@reach/router';
-import Profile from './app/profile';
+import Profile from './educator/profile';
+import Dashboard from './educator/dashboard';
 import Login from './login';
 import { useIdentityContext } from 'react-netlify-identity-widget';
 import { navigate } from 'gatsby';
@@ -23,13 +24,14 @@ function PrivateRoute (props) {
   return isLoggedIn ? <Component {...rest} /> : null;
 }
 
-const App = () => {
+const EducatorApp = () => {
   return (
-    <Router>
+    <Router basepath="/educator">
       <PrivateRoute path="/profile" component={Profile} />
+      <PrivateRoute path="/dashboard" component={Dashboard} />
       <Login path="/login" />
     </Router>
   );
 };
 
-export default App;
+export default EducatorApp;

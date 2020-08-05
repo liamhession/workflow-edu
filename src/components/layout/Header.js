@@ -22,7 +22,7 @@ const Header = ({
       <div>
         { isLoggedIn
         ?
-          <Link to="/profile">
+          <Link to="/educator/profile">
             <Button className="text-sm py-1 px-2 sm:py-3 sm:px-8">Profile</Button>
           </Link>
         :
