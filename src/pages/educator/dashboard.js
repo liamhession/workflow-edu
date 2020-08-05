@@ -44,6 +44,7 @@ const DashboardPage = () => {
   };
 
   // Request the mood logs of all students, for display
+  // TO UPDATE: Get warnings w these useEffect hooks, look here to determine best way to handle: https://medium.com/better-programming/understanding-the-useeffect-dependency-array-2913da504c44
   React.useEffect(() => {
     getMoods();
   }, [requestReload]);
