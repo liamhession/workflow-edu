@@ -1,10 +1,11 @@
 // Docs on event and context https://www.netlify.com/docs/functions/#the-handler-method
 const admin = require('firebase-admin');
-const serviceAccount = require('./serviceAccountKey.json');
+const { JSON_FIREBASE_CREDENTIALS } = process.env;
+const firebaseCredentials = JSON.parse(JSON_FIREBASE_CREDENTIALS);
 
 if (admin.apps.length === 0) {
   admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+    credential: admin.credential.cert(firebaseCredentials),
     databaseURL: 'https://workflow-edu.firebaseio.com'
   });
 }
@@ -14,9 +15,7 @@ const db = admin.firestore();
 
 // Generate a new code in our format, redoing if it's one of the codes in use currently
 const VALID_CHARS = [...'ABCDE'];
-const generateValidUnusedCode = async (override = false) => {
-  if (override) return 'ABCDE'; // TODO, remove, for testing
-
+const generateValidUnusedCode = async () => {
   let studentCodesInUse = [];
   const snapshot = await db.collection('students').where('isActivated', '==', false).get();
   snapshot.forEach((doc) => {
@@ -37,9 +36,15 @@ const generateValidUnusedCode = async (override = false) => {
 //    (This is to cover race conditions in the unlikely case two students are given same code at same time)
 exports.handler = async (event) => {
   try {
-    // Take the student name, passed in in POST body
-    const submittedStudentNameObject = JSON.parse(event.body);
-    const { name } = submittedStudentNameObject;
+    // Take the student name, and teacher id, passed in in POST body
+    const submittedNewStudentObject = JSON.parse(event.body);
+    const {
+      name,
+      teacherId,
+    } = submittedNewStudentObject;
+
+    // Get a ref to their teacher's document for linking to it in new student
+    const teacherRef = db.doc(`teachers/${teacherId}`);
 
     let newStudentCode = await generateValidUnusedCode(true);
 
@@ -48,6 +53,7 @@ exports.handler = async (event) => {
       name,
       activationCode: newStudentCode,
       isActivated: false,
+      mainTeacher: teacherRef,
     };
     const newStudent = await db.collection('students').add(studentDetails);
 
@@ -84,6 +90,7 @@ exports.handler = async (event) => {
       },
     };
   } catch (err) {
+    console.error(err);
     return { statusCode: 500, body: err.toString() }
   }
 }

@@ -1,8 +1,9 @@
 import React from 'react';
-import isNil from 'lodash';
 
 import Button from '../../components/Button';
 import Layout from '../../components/layout/Layout';
+
+const HARDCODED_TEACHER_ID = '7Brck2k27mIWdMEGsZvz';
 
 const DashboardPage = () => {
   const [isLoadingMoods, setIsLoadingMoods] = React.useState(true);
@@ -29,7 +30,10 @@ const DashboardPage = () => {
   // TODO next: send the student's name as entered by teacher into the create-new-student fn
   //    And update the interface to make it clear you're entering the student, and are given code
   const createNewStudentAndGetCode = async () => {
-    const createNewStudentBody = { name: submittedNewStudentName };
+    const createNewStudentBody = { 
+      name: submittedNewStudentName,
+      teacherId: HARDCODED_TEACHER_ID,
+    };
     const newStudentResponse = await fetch('/.netlify/functions/create-new-student', {
       method: 'POST',
       body: JSON.stringify(createNewStudentBody),
@@ -41,6 +45,7 @@ const DashboardPage = () => {
     let currentStudents = [...students];
     currentStudents.push({ name: submittedNewStudentName, activationCode });
     setStudents(currentStudents);
+    setSubmittedNewStudentName();
   };
 
   // Request the mood logs of all students, for display
@@ -51,13 +56,10 @@ const DashboardPage = () => {
 
   // Submit student name and get back code that they'll be able to enter to activate their account
   React.useEffect(() => {
-    if (isNil(submittedNewStudentName)) { 
-      console.log(submittedNewStudentName);
-      return;
-    }
+    if (submittedNewStudentName == null) return;
 
     createNewStudentAndGetCode();
-  }, [submittedNewStudentName]);
+  }, [submittedNewStudentName]); //TOFIX: this doesnt get called if you try submitting the name "John" a second time
 
   return (
     <Layout isProfilePage={true}>

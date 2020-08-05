@@ -1,10 +1,11 @@
 // Docs on event and context https://www.netlify.com/docs/functions/#the-handler-method
 const admin = require('firebase-admin');
-const serviceAccount = require('./serviceAccountKey.json');
+const { JSON_FIREBASE_CREDENTIALS } = process.env;
+const firebaseCredentials = JSON.parse(JSON_FIREBASE_CREDENTIALS);
 
 if (admin.apps.length === 0) {
   admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+    credential: admin.credential.cert(firebaseCredentials),
     databaseURL: 'https://workflow-edu.firebaseio.com'
   });
 }
@@ -24,6 +25,7 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({ createdResponse }),
     }
   } catch (err) {
+    console.error(err);
     return { statusCode: 500, body: err.toString() }
   }
 }
