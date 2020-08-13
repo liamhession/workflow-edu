@@ -30,6 +30,7 @@
     "gatsby-plugin-netlify-identity": "^0.0.3",
     "gatsby-plugin-postcss": "^2.3.4",
     "lodash": "^4.17.19",
+    "moment-timezone": "^0.5.31",
     "netlify-lambda": "^1.6.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

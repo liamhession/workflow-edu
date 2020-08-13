@@ -1,0 +1,14 @@
+{
+  "name": "get-students",
+  "version": "1.0.0",
+  "description": "Accepts a teacher id, gets their list of students",
+  "main": "get-students.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Liam Hession",
+  "license": "ISC",
+  "dependencies": {
+    "firebase-admin": "^8.12.1"
+  }
+}

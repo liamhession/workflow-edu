@@ -44,7 +44,7 @@ exports.handler = async (event) => {
     } = submittedNewStudentObject;
 
     // Get a ref to their teacher's document for linking to it in new student
-    const teacherRef = db.doc(`teachers/${teacherId}`);
+    const teacherRef = db.collection('teachers').doc(teacherId);
 
     let newStudentCode = await generateValidUnusedCode(true);
 

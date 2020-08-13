@@ -8,7 +8,8 @@ import { useIdentityContext } from 'react-netlify-identity-widget';
 import { navigate } from 'gatsby';
 
 function PrivateRoute (props) {
-  const { isLoggedIn } = useIdentityContext();
+  const identityContext = useIdentityContext();
+  const { isLoggedIn } = identityContext;
   const { component: Component, location, ...rest } = props;
 
   useEffect(

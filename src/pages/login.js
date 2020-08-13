@@ -6,13 +6,15 @@ import { Widget } from '../components/IdentityWidget/app';
 const Login = () => {
   const navigate = useNavigate();
 
-  // Define redirect-to-profile page function, to be run on successful login or signup
-  const navigateToProfile = () => navigate('/educator/profile');
+  // Define "redirect to dashboard" page function, to be run on successful login or signup
+  const navigateToDashboard = () => navigate('/educator/dashboard');
 
   return (
     <Layout>
       <div id="loginSignupContainer" className="w-4/5 sm:w-3/5 mx-auto mt-3">
-        <Widget onLogin={navigateToProfile} onSignup={navigateToProfile} />
+        <Widget
+          onLogin={navigateToDashboard}
+          onSignup={navigateToDashboard} />
       </div>
     </Layout>
   )
