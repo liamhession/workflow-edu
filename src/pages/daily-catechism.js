@@ -10,7 +10,7 @@ import Button from '../components/Button';
 // individual possesses the dignity of a
 // person, who is not just something, but
 // someone.
-const MemoryJogPage = () => {
+const DailyCatechismPage = () => {
   // Description of this workflow presented to the creating teacher
   const headlineDescription = 'Daily Catechism - A mini reflection on faith and the Church';
   const detailedDescription1 = 'This Workflow allows you to share a passage from the Catechism of the Catholic Church with your student(s).';
@@ -135,4 +135,4 @@ const MemoryJogPage = () => {
   );
 };
 
-export default MemoryJogPage;
+export default DailyCatechismPage;

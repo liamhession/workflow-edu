@@ -13855,13 +13855,6 @@ react-netlify-identity-widget@^0.2.7:
   resolved "https://registry.yarnpkg.com/react-netlify-identity-widget/-/react-netlify-identity-widget-0.2.7.tgz#3cb40b122cd3b4cbf8f18a250b2cad471cd5e5cd"
   integrity sha512-V3Bm1ftA6F8z4qDGDQ001t6EuVDuUYbkFmNePF27ai/qKIqIQAsu1iQZnx14bkEokXj4t2nBJcJmzRdNxp8CZQ==
 
-react-netlify-identity@0.2.5:
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/react-netlify-identity/-/react-netlify-identity-0.2.5.tgz#8e7a537fe3b3aecf729a9250fe13e232004e330e"
-  integrity sha512-sesi2xI0Me1trECgvxZIweJ+Edx1zoZavY1NjgCTE7bbKhaaw2b2Z7okhdg2YwBj0iRIVSe9qtuSj8gzY5jaNg==
-  dependencies:
-    gotrue-js "^0.9.25"
-
 react-netlify-identity@^0.1.8:
   version "0.1.9"
   resolved "https://registry.yarnpkg.com/react-netlify-identity/-/react-netlify-identity-0.1.9.tgz#9a56de108632d41cb09e21f9d71fa439692b3971"
