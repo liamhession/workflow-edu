@@ -1,0 +1,14 @@
+{
+  "name": "get-moods",
+  "version": "1.0.0",
+  "description": "Request moods of students stored in firestore.",
+  "main": "get-moods.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Liam Hession",
+  "license": "ISC",
+  "dependencies": {
+    "firebase-admin": "^8.12.1"
+  }
+}

@@ -10,6 +10,9 @@ A JavaScript function intercepts form submits and sends them using `fetch` inste
 
 This is a good starting point for quick Lambda demos.
 
+## Functions
+http://localhost:8888/.netlify/functions/function-name
+
 ## Development setup
 
 You should run `yarn` before starting.

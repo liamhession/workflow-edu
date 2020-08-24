@@ -13,16 +13,18 @@ if (admin.apps.length === 0) {
 // As an admin, the app has access to read and write all data, regardless of Security Rules
 const db = admin.firestore();
 
-exports.handler = async (event, context) => {
+// Create a new teacher entry with the passed in info, and respond with the new teacher's id
+exports.handler = async (event) => {
   try {
-    // Take the object passed in as POST body
-    const submittedResponse = JSON.parse(event.body);
+    const teacherDetails = JSON.parse(event.body);
 
-    const createdResponse = await db.collection('onboardingResponses').add(submittedResponse);
+    const newTeacher = await db.collection('teachers').add(teacherDetails);
+
+    const teacherId = newTeacher.id;
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ createdResponse }),
+      body: JSON.stringify({ teacherId }),
     }
   } catch (err) {
     console.error(err);

@@ -89,8 +89,17 @@ typings/
 
 dist
 
+# private key, reflected in environment variables of project,
+firebase-credentials-private-key.json
+# in its JSON-stringified version at least
+firebase-credentials-private-key-JSON-stringified.txt
+
+# package-lock.json bc we want to use yarn.lock instead
+package-lock.json
+
 # gatsby files
 .cache/
 public/
+
 # Local Netlify folder
 .netlify

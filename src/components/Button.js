@@ -6,6 +6,7 @@ const Button = ({ children, className = '', onClick }) => {
       type="button"
       className={`
         ${className}
+        px-1
         bg-primary
         hover:bg-primary-darker
         rounded

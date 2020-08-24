@@ -37,7 +37,7 @@ const SubmitPanel = () => {
 
     setSubmitted(true);
 
-    navigate('/profile');
+    navigate('/educator/profile');
   };
 
   return (

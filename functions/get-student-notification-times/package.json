@@ -1,0 +1,15 @@
+{
+  "name": "get-student-notification-times",
+  "version": "1.0.0",
+  "description": "Student ID is passed in, the next time for them to see a notification is returned, UNIX timestamp.",
+  "main": "get-student-notification-times.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Liam Hession",
+  "license": "ISC",
+  "dependencies": {
+    "firebase-admin": "^8.12.1",
+    "moment-timezone": "^0.5.31"
+  }
+}
