@@ -41,6 +41,8 @@ exports.handler = async (event) => {
     const {
       name,
       teacherId,
+      notificationTime,
+      timezoneName,
     } = submittedNewStudentObject;
 
     // Get a ref to their teacher's document for linking to it in new student
@@ -54,6 +56,8 @@ exports.handler = async (event) => {
       activationCode: newStudentCode,
       isActivated: false,
       mainTeacher: teacherRef,
+      notificationTime,
+      timezoneName,
     };
     const newStudent = await db.collection('students').add(studentDetails);
 

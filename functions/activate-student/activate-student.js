@@ -18,7 +18,10 @@ const db = admin.firestore();
 exports.handler = async (event) => {
   try {
     // Take the object passed in as POST body
-    const { activationCode } = JSON.parse(event.body);
+    const { activationCode: rawActivationCode } = JSON.parse(event.body);
+
+    // Set whatever is passed in to the fully-capitalized version of it, which is how they're stored
+    const activationCode = rawActivationCode.toUpperCase();
 
     const studentEntryOrEntries = 
       await db.collection('students')

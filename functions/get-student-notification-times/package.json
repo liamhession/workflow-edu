@@ -9,6 +9,7 @@
   "author": "Liam Hession",
   "license": "ISC",
   "dependencies": {
-    "firebase-admin": "^8.12.1"
+    "firebase-admin": "^8.12.1",
+    "moment-timezone": "^0.5.31"
   }
 }
