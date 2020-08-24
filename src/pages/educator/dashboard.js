@@ -1,5 +1,6 @@
 import React from 'react';
 import { useIdentityContext } from 'react-netlify-identity';
+// TODO ^ should this not import from react-netlify-identity-widget?
 import {
   get,
   isNil,
