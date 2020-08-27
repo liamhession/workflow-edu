@@ -74,16 +74,18 @@ exports.handler = async (event) => {
             customMessage,
             wantsToDiscuss,
             teacherStatus,
-            teacherNotes,
+            teacherNote,
           } = mostRecentLogSnapshot.docs[0].data();
+          const logId = mostRecentLogSnapshot.docs[0].id;
           mostRecentLog = {
+            logId,
             timestamp,
             moodScore,
             selectedReasons,
             customMessage,
             wantsToDiscuss,
             teacherStatus,
-            teacherNotes,
+            teacherNote,
           };
         }
         studentSummaries.push({

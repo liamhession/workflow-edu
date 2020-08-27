@@ -1,0 +1,14 @@
+{
+  "name": "update-mood-log-status-or-notes",
+  "version": "1.0.0",
+  "description": "Teacher updates status of a mood log, or adds/modifies their notes on it.",
+  "main": "update-mood-log-status-or-notes.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Liam Hession",
+  "license": "ISC",
+  "dependencies": {
+    "firebase-admin": "^8.12.1"
+  }
+}

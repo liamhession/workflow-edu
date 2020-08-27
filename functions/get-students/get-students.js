@@ -15,7 +15,7 @@ const db = admin.firestore();
 
 exports.handler = async (event) => {
   try {
-    // Take the student name, and teacher id, passed in in POST body
+    // Take the teacher id passed in in POST body
     const teacherIdObject = JSON.parse(event.body);
     const { teacherId } = teacherIdObject;
 

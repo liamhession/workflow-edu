@@ -15,36 +15,33 @@ const db = admin.firestore();
 
 exports.handler = async (event) => {
   try {
-    console.log(event.body);
     // Parse the object passed in as POST body
-    let submittedMood = JSON.parse(event.body);
+    const submittedStatusOrNotes = JSON.parse(event.body);
     const {
-      studentId,
-      customMessage: rawCustomMessage,
-    } = submittedMood;
+      status,
+      note,
+      logId,
+    } = submittedStatusOrNotes;
 
-    // Convert the studentId, passed as a string, into an actual ref
-    const student = db.collection('students').doc(studentId)
-    // We don't want the studentId in final object though
-    delete submittedMood.studentId
-
-    // Little optimization, don't store empty "" customMessage, delete it if it's ""
-    if (rawCustomMessage === '') {
-      delete submittedMood.customMessage;
+    // Create object specifying the new values for either status or note, if they were passed in
+    let updatedFields = {};
+    if (!!status) {
+      updatedFields['teacherStatus'] = status;
+    }
+    if (!!note) {
+      updatedFields['teacherNote'] = note;
     }
 
-    const newMoodLog = {
-      student,
-      teacherStatus: 'unseen',
-      ...submittedMood,
-    };
+    // Convert the logId, passed as a string, into an actual ref
+    const log = db.collection('moodLogs').doc(logId)
 
-    await db.collection('moodLogs').add(newMoodLog);
+    // Update the fields that had new values passed in for them
+    await log.update(updatedFields);
 
     return {
       statusCode: 200,
-      body: JSON.stringify(newMoodLog),
-    }
+      body: 'Mood log status/note successfully updated.',
+    };
   } catch (err) {
     console.error(err);
     return { statusCode: 500, body: err.toString() }
