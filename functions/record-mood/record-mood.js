@@ -15,7 +15,6 @@ const db = admin.firestore();
 
 exports.handler = async (event) => {
   try {
-    console.log(event.body);
     // Parse the object passed in as POST body
     let submittedMood = JSON.parse(event.body);
     const {

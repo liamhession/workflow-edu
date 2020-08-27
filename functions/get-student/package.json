@@ -1,0 +1,14 @@
+{
+  "name": "get-student",
+  "version": "1.0.0",
+  "description": "Teacher ID and student ID is passed in, makes sure that is that student's teacher and if so sends back student info.",
+  "main": "get-student.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Liam Hession",
+  "license": "ISC",
+  "dependencies": {
+    "firebase-admin": "^8.12.1"
+  }
+}

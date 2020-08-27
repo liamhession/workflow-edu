@@ -1,5 +1,6 @@
 // Docs on event and context https://www.netlify.com/docs/functions/#the-handler-method
 const admin = require('firebase-admin');
+const moment = require('moment-timezone');
 
 const { JSON_FIREBASE_CREDENTIALS } = process.env;
 const firebaseCredentials = JSON.parse(JSON_FIREBASE_CREDENTIALS);
@@ -29,11 +30,13 @@ exports.handler = async (event) => {
         name,
         activationCode,
         isActivated,
+        timezoneName,
       } = doc.data();
       students.push({
         name,
         activationCode,
         isActivated,
+        timezoneName,
         id: doc.id,
       });
     });
@@ -52,10 +55,10 @@ exports.handler = async (event) => {
       // Not-yet-activated students don't need to have attempted log requests done
       if (!isActivated) {
         studentSummaries.push({
+          studentId: id,
           name,
           isActivated,
           activationCode,
-          timezoneName,
         });
       }
 
@@ -66,6 +69,7 @@ exports.handler = async (event) => {
 
         // Default is an undefined mostRecentLog
         let mostRecentLog;
+        // But if there is some data in the snapshot, that becomes mostRecentLog
         if (mostRecentLogSnapshot.size > 0) {
           const {
             timestamp,
@@ -77,9 +81,13 @@ exports.handler = async (event) => {
             teacherNote,
           } = mostRecentLogSnapshot.docs[0].data();
           const logId = mostRecentLogSnapshot.docs[0].id;
+
+          // Convert the timestamp into a readable date-time string
+          const dateTime = moment(timestamp).tz(timezoneName).format('M/D/YY h:mm A');
+
           mostRecentLog = {
             logId,
-            timestamp,
+            dateTime,
             moodScore,
             selectedReasons,
             customMessage,
@@ -88,11 +96,12 @@ exports.handler = async (event) => {
             teacherNote,
           };
         }
+
         studentSummaries.push({
+          studentId: id,
           name,
           isActivated,
           activationCode,
-          timezoneName,
           mostRecentLog,
         });
       }

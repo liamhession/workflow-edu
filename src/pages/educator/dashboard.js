@@ -38,6 +38,7 @@ const DashboardPage = () => {
   //    call which watches for changes to their "requestX" state variable
   const getStudents = async () => {
     if (isNil(teacherId)) return;
+    console.log(teacherId);
     console.log('request to get-students');
 
     const studentsResponse = await fetch('/.netlify/functions/get-students', {

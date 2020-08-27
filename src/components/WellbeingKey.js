@@ -8,7 +8,7 @@ import mood4 from '../images/4.png';
 import mood5 from '../images/5.png';
 
 const WellbeingKey = () => (
-  <div className="wellbeing-key-container w-1/4 mx-auto">
+  <div className="wellbeing-key-container w-1/3 max-w-xs mx-auto">
     <div className="text-xl">Wellbeing Key</div>
     <div className="flex flex-row">
       <div className="flex flex-col w-1/5">

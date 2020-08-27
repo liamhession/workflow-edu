@@ -1,10 +1,8 @@
 import React from 'react';
-import { Link } from '@reach/router';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import {
   get,
   isNil,
-  omit,
 } from 'lodash';
 
 // Styling of table rows and columns based on this TailwindCSS snippet:
@@ -14,52 +12,53 @@ import {
 import statuses from '../constants/logStatuses';
 
 // The list of columns displayed, which we can use to make empty rows span the full table
-const columns = ['Student', 'Most Recent Log', 'Wellbeing Score', 'Mood Influence(s)', 'Submitted Message', 'Status', 'Teacher Notes'];
+const columns = ['Date', 'Wellbeing Score', 'Mood Influence(s)', 'Submitted Message', 'Status', 'Teacher Notes'];
 
-const StudentSummaries = ({
+// TODO : Add pagination, they should page through 10 or so logs at a time to reduce clutter later on when many logs are there
+const StudentLogs = ({
+  studentId,
   teacherId,
 }) => {
   // STUDENT SUMMARY GRID ------------------
-  const [isLoadingStudentSummaries, setIsLoadingStudentSummaries] = React.useState(true);
-  const [studentSummaries, setStudentSummaries] = React.useState([]);
+  const [isLoadingStudentLogs, setIsLoadingStudentLogs] = React.useState(true);
+  const [isValidTeacher, setIsValidTeacher] = React.useState(true);
+  const [studentLogs, setStudentLogs] = React.useState([]);
 
   // Once teacherId is available, request the student summaries of this teacher's students 
-  const getStudentSummaries = async () => {
-    if (isNil(teacherId)) return;
-    console.log('start of the getStudentSummaries request');
+  const getStudentLogs = async () => {
+    if (isNil(teacherId) || isNil(studentId)) return;
+    console.log('start of the getStudentLogs request');
 
-    const allStudentSummariesResponse = await fetch('/.netlify/functions/get-student-summaries', {
+    const allStudentLogsResponse = await fetch('/.netlify/functions/get-student-logs', {
       method: 'POST',
-      body: JSON.stringify({ teacherId }),
+      body: JSON.stringify({
+        studentId,
+        teacherId,
+      }),
     });
-    const allStudentSummaries = await allStudentSummariesResponse.json();
+    const {
+      isValid,
+      studentLogs: allStudentLogs,
+    } = await allStudentLogsResponse.json();
 
-    // All students gotten back from API:
-    setStudentSummaries(allStudentSummaries);
-    setIsLoadingStudentSummaries(false);
+    // Update state with validity and all student logs gotten back from API:
+    setIsValidTeacher(isValid);
+    setStudentLogs(allStudentLogs);
+    setIsLoadingStudentLogs(false);
   };
 
   // Request the mood logs of all students, for display, once teacherId is ready
   React.useEffect(() => {
-    getStudentSummaries();
+    getStudentLogs();
   }, [teacherId]);
 
   // Utilities to take the raw response from server of all student summaries, and order them,
   //    plus put stand-in values for any times where a desired field is undefined
 
-  // The first most essential way to split up the students' logs, is to highlight the ones
-  //    that the teacher has not yet "seen", as measured by them not yet marking as "seen"
-  const getUnseenStudentSummaries = (rawSummaries) => {
-    return rawSummaries.filter(summary => get(summary, ['mostRecentLog', 'teacherStatus']) === 'unseen');
-  };
-  const getSeenStudentSummaries = (rawSummaries) => {
-    return rawSummaries.filter(summary => get(summary, ['mostRecentLog', 'teacherStatus']) !== 'unseen');
-  };
-
-  // Format the data for each student summary, converting some fields, so they can each be input to
-  //    the StudentSummaryRow component, which will get styled using TailwindCSS
-  const formatStudentSummariesAsRows = (rawSummaries) => {
-    // Mapping of scores to colors allows us to shade the most recent logs
+  // Format the data for each mood log, converting some fields, so they can each be input to
+  //    the StudentLogRow component, which will get styled using TailwindCSS
+  const formatStudentLogsAsRows = (rawLogs) => {
+    // Mapping of scores to colors allows us to shade the logs' mood scores
     const colorForScore = {
       1: '#159be8',
       2: '#9c38ff',
@@ -68,17 +67,15 @@ const StudentSummaries = ({
       5: '#60c038',
     };
     
-    const convertedSummaries = rawSummaries.map(summary => ({
-      ...omit(summary, 'mostRecentLog'),
-      hasLog: !isNil(summary.mostRecentLog),
-      ...get(summary, 'mostRecentLog', {}),
-      moodColor: colorForScore[get(summary, ['mostRecentLog', 'moodScore'])],
+    const convertedLogs = rawLogs.map(log => ({
+      ...log,
+      moodColor: colorForScore[get(log, ['moodScore'])],
     }));
 
-    const summaryRowComponents = convertedSummaries.map((summary, index) => (
-      <StudentSummaryRow key={index} {...summary}></StudentSummaryRow>
+    const logRowComponents = convertedLogs.map((log, index) => (
+      <StudentLogRow key={index} {...log}></StudentLogRow>
     ));
-    return summaryRowComponents;
+    return logRowComponents;
   };
 
   // Sub-component just defined here for now
@@ -89,7 +86,7 @@ const StudentSummaries = ({
     const [isUpdating, setIsUpdating] = React.useState(false);
 
     const changeStatus = (clickEvent) => {
-      // Will be reset to false when the page re-renders from the re-request of 'getStudentSummaries'
+      // Will be reset to false when the page re-renders from the re-request of 'getStudentLogs'
       setIsUpdating(true);
       const newStatus = clickEvent.target.value;
 
@@ -102,7 +99,7 @@ const StudentSummaries = ({
         }),
       })
       // Re-request student summaries only after the update is complete, so it will be reflected in updated summaries
-      .then(getStudentSummaries);
+      .then(getStudentLogs);
     };
 
     if (isUpdating) {
@@ -145,7 +142,7 @@ const StudentSummaries = ({
         }),
       })
       // Re-request student summaries only after the update is complete, so it will be reflected in updated summaries
-      .then(getStudentSummaries);
+      .then(getStudentLogs);
     };
 
     const hasNoteChanged = noteContents !== currentNote;
@@ -168,12 +165,7 @@ const StudentSummaries = ({
   };
 
   // Sub-component just defined here for now
-  const StudentSummaryRow = ({
-    studentId,
-    name,
-    isActivated,
-    activationCode,
-    hasLog,
+  const StudentLogRow = ({
     logId,
     dateTime,
     moodScore,
@@ -183,46 +175,10 @@ const StudentSummaries = ({
     teacherStatus,
     teacherNote,
   }) => {
-    // When not yet activated, show simple message listing the student's name and their code
-    if (!isActivated) {
-      return (
-        <tr className="inactive bg-white md:hover:bg-gray-100 flex md:table-row flex-row md:flex-row flex-wrap md:flex-no-wrap mb-10 md:mb-0">
-          <td className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
-            <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Name</span>
-            {name}
-          </td>
-          <td colSpan={columns.length - 1} className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
-            <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Note</span>
-            Student's account is not yet activated. If you haven't already, give them this code: {activationCode}
-          </td>
-        </tr>
-      );
-    }
-
-    // When student has not yet shared any logs, display a generic listing, just their name
-    if (!hasLog) {
-      return (
-        <tr className="no-logs-yet bg-white md:hover:bg-gray-100 flex md:table-row flex-row md:flex-row flex-wrap md:flex-no-wrap mb-10 md:mb-0">
-          <td className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
-            <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Name</span>
-            {name}
-          </td>
-          <td colSpan={columns.length - 1} className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
-            <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Note</span>
-            Student has not yet logged any entries from their extension. Once they have, it will show here!
-          </td>
-        </tr>
-      );
-    }
-
     return (
       <tr className="bg-white md:hover:bg-gray-100 flex md:table-row flex-row md:flex-row flex-wrap md:flex-no-wrap mb-10 md:mb-0">
         <td className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
-          <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Name</span>
-          <Link to={`/educator/student?studentId=${studentId}`}>{name}</Link>
-        </td>
-        <td className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
-          <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Most Recent Log</span>
+          <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Date</span>
           {dateTime}
         </td>
         <td className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
@@ -249,8 +205,8 @@ const StudentSummaries = ({
     );
   };
 
-  const TableStudentSummaries = ({
-    studentSummaryRows,
+  const TableStudentLogs = ({
+    studentLogs,
     isLoading,
   }) => (
     <table className="border-collapse w-full">
@@ -268,38 +224,38 @@ const StudentSummaries = ({
               <td colSpan={columns.length} className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">Loading...</td>
             </tr>)
           : (
-            studentSummaryRows.length === 0 // not loading, but no students in their charge
+            studentLogs.length === 0 // not loading, but no students in their charge
             ? (<tr className="bg-white md:hover:bg-gray-100 flex md:table-row flex-row md:flex-row flex-wrap md:flex-no-wrap mb-10 md:mb-0">
-                <td colSpan={columns.length} className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">No students in your roster yet, add them above.</td>
+                <td colSpan={columns.length} className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">No logs for this student yet.</td>
               </tr>)
-            : (studentSummaryRows)
+            : (studentLogs)
           )
         }
       </tbody>
     </table>
   );
 
-  // Put the student summaries in the order we prefer them (inactive students last, etc),
-  //    and also convert them to the row format used by react-bootstrap/Table
-  const unseenStudentSummaries = getUnseenStudentSummaries(studentSummaries);
-  const seenStudentSummaries = getSeenStudentSummaries(studentSummaries);
-  const studentSummariesInOrder = [...unseenStudentSummaries, ...seenStudentSummaries];
-  const studentSummariesAsRows = formatStudentSummariesAsRows(studentSummariesInOrder);
+  const studentLogsAsRows = formatStudentLogsAsRows(studentLogs);
+
+  // If request to db comes back showing them as not the valid teacher for this student, show message
+  if (!isValidTeacher) {
+    return <div className="text-red-400">Our records do not show you as the teacher for this student.</div>;
+  }
 
   return (
-    <div className='student-summaries-container p-3'>
-      <h2 className='mb-1'>Most Recent Student Submissions</h2>
-      <TableStudentSummaries
-        studentSummaryRows={studentSummariesAsRows}
-        isLoading={isLoadingStudentSummaries}
-      ></TableStudentSummaries>
+    <div className='student-logs-container p-3'>
+      <TableStudentLogs
+        studentLogs={studentLogsAsRows}
+        isLoading={isLoadingStudentLogs}
+      ></TableStudentLogs>
       {/* TODO Decide if it makes sense that all past logs will be marked as seen when top one is? Or have a 'mark all as seen' button? */}
     </div>
   );
 };
 
-StudentSummaries.propTypes = {
+StudentLogs.propTypes = {
+  studentId: PropTypes.string,
   teacherId: PropTypes.string,
 };
 
-export default StudentSummaries;
+export default StudentLogs;

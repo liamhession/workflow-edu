@@ -1,8 +1,8 @@
 {
-  "name": "get-student-summaries",
+  "name": "get-student-logs",
   "version": "1.0.0",
-  "description": "Teacher ID is passed in, responds with all their students' most recent logs.",
-  "main": "get-student-summaries.js",
+  "description": "Request all the logs created so far by a student (should be updated to do paginated version of this).",
+  "main": "get-student-logs.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
