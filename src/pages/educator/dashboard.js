@@ -9,6 +9,7 @@ import {
 
 import Button from '../../components/Button';
 import Layout from '../../components/layout/Layout';
+import WellbeingKey from '../../components/WellbeingKey';
 import StudentSummaries from '../../components/StudentSummaries';
 
 const DashboardPage = () => {
@@ -229,6 +230,8 @@ const DashboardPage = () => {
             onClick={submitNotificationTime}
           >Submit</Button>
         </div>
+        <hr className="my-1" />
+        <WellbeingKey />
         <hr className="my-1" />
         <StudentSummaries teacherId={teacherId} />
       </div>
