@@ -4,7 +4,7 @@ import { Router } from '@reach/router';
 import queryString from 'query-string';
 import Profile from './educator/profile';
 import Dashboard from './educator/dashboard';
-import Student from './educator/student';
+import Student from '../clientside-pages/student';
 import Login from './login';
 import { useIdentityContext } from 'react-netlify-identity-widget';
 import { navigate } from 'gatsby';

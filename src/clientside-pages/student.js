@@ -7,8 +7,8 @@ import {
   isEmpty,
 } from 'lodash';
 
-import Layout from '../../components/layout/Layout';
-import WellbeingKey from '../../components/WellbeingKey';
+import Layout from '../components/layout/Layout';
+import WellbeingKey from '../components/WellbeingKey';
 
 
 const StudentPage = ({ queryParams = {} }) => {
