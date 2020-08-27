@@ -7,13 +7,11 @@ import {
   isEmpty,
 } from 'lodash';
 
-import Button from '../../components/Button';
 import Layout from '../../components/layout/Layout';
 import WellbeingKey from '../../components/WellbeingKey';
-import StudentSummaries from '../../components/StudentSummaries';
 
 
-const StudentPage = ({ queryParams }) => {
+const StudentPage = ({ queryParams = {} }) => {
   // Initialization ---------------
   // Get the student in question's id from query params
   const { studentId } = queryParams;
