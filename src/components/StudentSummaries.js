@@ -47,14 +47,25 @@ const StudentSummaries = ({
   // Utilities to take the raw response from server of all student summaries, and order them,
   //    plus put stand-in values for any times where a desired field is undefined
 
-  // The first most essential way to split up the students' logs, is to highlight the ones
-  //    that the teacher has not yet "seen", as measured by them not yet marking as "seen"
-  const getUnseenStudentSummaries = (rawSummaries) => {
-    return rawSummaries.filter(summary => get(summary, ['mostRecentLog', 'teacherStatus']) === 'unseen');
-  };
-  const getSeenStudentSummaries = (rawSummaries) => {
-    return rawSummaries.filter(summary => get(summary, ['mostRecentLog', 'teacherStatus']) !== 'unseen');
-  };
+  // The first most essential way to split up the students' logs, is based on teacher status
+  //    unseen > flagged > seen > responded to
+  const statusRanking = ['unseen', 'flagged', 'seen', 'responded'];
+  const orderStudentSummaries = (rawSummaries) => {
+    // Iterate through the rankings, adding the summaries with their status to the final array, in turn
+    let orderedSummaries = [];
+    for (let index = 0; index < statusRanking.length; index++) {
+      const currentStatus = statusRanking[index];
+      const summariesWithStatus = rawSummaries.filter((summary) =>
+        get(summary, ['mostRecentLog', 'teacherStatus']) === currentStatus);
+      orderedSummaries.push(...summariesWithStatus);
+    }
+    // Then add the ones with no status (representing students not yet activated, or having logged a response)
+    const newStudentsSummaries = rawSummaries.filter((summary) => 
+      isNil(get(summary, ['mostRecentLog', 'teacherStatus'])));
+    orderedSummaries.push(...newStudentsSummaries);
+
+    return orderedSummaries;
+  }; 
 
   // Format the data for each student summary, converting some fields, so they can each be input to
   //    the StudentSummaryRow component, which will get styled using TailwindCSS
@@ -167,6 +178,14 @@ const StudentSummaries = ({
     );
   };
 
+  // For styling the optional little dot in the corner of a given summary's Teacher Status cell:
+  const classesForStatus = {
+    unseen: 'absolute top-0 right-0 mt-1 mr-1 w-3 h-3 rounded-full bg-red-500',
+    seen: 'hidden',
+    flagged: 'absolute top-0 right-0 mt-1 mr-1 w-3 h-3 rounded-full bg-orange-500',
+    responded: 'hidden',
+  };
+
   // Sub-component just defined here for now
   const StudentSummaryRow = ({
     studentId,
@@ -215,6 +234,9 @@ const StudentSummaries = ({
       );
     }
 
+    // Potentially get a 'notification'-style indicator of a red or orange dot for the corner of the Status cell
+    const notificationDivClasses = classesForStatus[teacherStatus];
+
     return (
       <tr className="bg-white md:hover:bg-gray-100 flex md:table-row flex-row md:flex-row flex-wrap md:flex-no-wrap mb-10 md:mb-0">
         <td className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
@@ -237,8 +259,9 @@ const StudentSummaries = ({
           <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Submitted Message</span>
           {customMessage}
         </td>
-        <td className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
+        <td className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative">
           <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Status</span>
+          <div className={notificationDivClasses}></div>
           <StatusDropdown currentStatus={teacherStatus} logId={logId} />
         </td>
         <td className="w-full md:w-auto p-0 text-gray-800 text-center border border-b block md:table-cell relative md:static">
@@ -281,9 +304,9 @@ const StudentSummaries = ({
 
   // Put the student summaries in the order we prefer them (inactive students last, etc),
   //    and also convert them to the row format used by react-bootstrap/Table
-  const unseenStudentSummaries = getUnseenStudentSummaries(studentSummaries);
-  const seenStudentSummaries = getSeenStudentSummaries(studentSummaries);
-  const studentSummariesInOrder = [...unseenStudentSummaries, ...seenStudentSummaries];
+  // const unseenStudentSummaries = getUnseenStudentSummaries(studentSummaries);
+  // const seenStudentSummaries = getSeenStudentSummaries(studentSummaries);
+  const studentSummariesInOrder = orderStudentSummaries([...studentSummaries]); // [...unseenStudentSummaries, ...seenStudentSummaries];
   const studentSummariesAsRows = formatStudentSummariesAsRows(studentSummariesInOrder);
 
   return (
