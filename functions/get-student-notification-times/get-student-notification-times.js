@@ -29,7 +29,7 @@ exports.handler = async (event) => {
     } = student.data();
 
     // Create a moment object in the future that represents their notification time, in their timezone
-    const nextNotification = moment(notificationTime, "HH:mm").tz(timezoneName);
+    const nextNotification = moment.tz(notificationTime, 'HH:mm', timezoneName);
     // Check if this notification would have already happened, and add a day to it if so
     if (nextNotification.isBefore(moment().tz(timezoneName))) {
       nextNotification.add(1, 'days');
