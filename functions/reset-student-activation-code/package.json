@@ -1,0 +1,14 @@
+{
+  "name": "reset-student-activation-code",
+  "version": "1.0.0",
+  "description": "Change a student back to inactive and get them a valid activation code to use, if they had to reset their extension.",
+  "main": "reset-student-activation-code.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Liam Hession",
+  "license": "ISC",
+  "dependencies": {
+    "firebase-admin": "^8.12.1"
+  }
+}

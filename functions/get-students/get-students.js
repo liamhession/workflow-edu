@@ -31,7 +31,9 @@ exports.handler = async (event) => {
         activationCode,
         isActivated,
       } = doc.data();
+      const id = doc.id;
       students.push({
+        id,
         name,
         activationCode,
         isActivated,

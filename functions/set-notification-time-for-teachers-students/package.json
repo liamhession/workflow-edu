@@ -1,0 +1,14 @@
+{
+  "name": "set-notification-time-for-teachers-students",
+  "version": "1.0.0",
+  "description": "Update the notification time and timezone associated with this teacher, given by id, and all their students.",
+  "main": "set-notification-time-for-teachers-students.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Liam Hession",
+  "license": "ISC",
+  "dependencies": {
+    "firebase-admin": "^8.12.1"
+  }
+}
