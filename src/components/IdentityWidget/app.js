@@ -12,10 +12,14 @@ import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@reach/tabs';
 //   onLogout?: () => void
 // };
 
-function LoggedOutScreen(props) {  //: AuthProps) {
+function LoggedOutScreen({
+  onLogin,
+  onSignup,
+  indexToShowFirst,
+}) {  //: AuthProps) {
   return (
     <div>
-      <Tabs defaultIndex={0}>
+      <Tabs defaultIndex={indexToShowFirst}>
         <TabList className="RNIW_header">
           <Tab className="RNIW_btn RNIW_btnHeader">Login</Tab>
           <Tab className="RNIW_btn RNIW_btnHeader">Sign Up</Tab>
@@ -23,10 +27,10 @@ function LoggedOutScreen(props) {  //: AuthProps) {
 
         <TabPanels>
           <TabPanel>
-            <Login onLogin={props.onLogin} />
+            <Login onLogin={onLogin} />
           </TabPanel>
           <TabPanel>
-            <Signup onSignup={props.onSignup} />
+            <Signup onSignup={onSignup} />
           </TabPanel>
         </TabPanels>
       </Tabs>
@@ -34,11 +38,11 @@ function LoggedOutScreen(props) {  //: AuthProps) {
   );
 }
 
-function LoggedInScreen(props) {  //: AuthProps) {
-  return <Logout onLogout={props.onLogout} />;
+function LoggedInScreen({ onLogout }) {  //: AuthProps) {
+  return <Logout onLogout={onLogout} />;
 }
 
-export function Widget(props) {   //: AuthProps) {
+export function IdentityWidget(props) {   //: AuthProps) {
   const identity = useIdentityContext();
   const isLoggedIn = Boolean(identity && identity.user);
   return isLoggedIn ? <LoggedInScreen {...props} /> : <LoggedOutScreen {...props} />;

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Dialog } from '@reach/dialog';
 import VisuallyHidden from '@reach/visually-hidden';
-import { Widget/*, AuthProps */ } from './app';
+import { IdentityWidget/*, AuthProps */ } from './app';
 
 import {
   IdentityContextProvider as _IdentityContextProvider,
@@ -39,7 +39,7 @@ export function IdentityModal({ showDialog, onCloseDialog, ...authprops }) {   /
       <button className="RNIW_btn RNIW_btnClose" onClick={onCloseDialog}>
         <VisuallyHidden>Close</VisuallyHidden>
       </button>
-      <Widget {...authprops} />
+      <IdentityWidget {...authprops} />
     </Dialog>
   );
 }

@@ -22,9 +22,6 @@ export function Logout({ onLogout }) {   //: LogoutProps) {
       .catch((err) => void console.error(err) || setMsg('Error: ' + err.message));
   return (
     <>
-      <div className="RNIW_header">
-        <button className="RNIW_btn RNIW_btnHeader active">Logged in</button>
-      </div>
       <form className="form ">
         <p className="RNIW_infoText">
           Logged in as <br />

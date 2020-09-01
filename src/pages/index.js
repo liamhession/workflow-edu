@@ -23,7 +23,7 @@ const HomePage = () => (
           Joining your peers on Workflow Edu means helping each other, and eventually students, find the right workflow for every situation.
           </p>
           <p className="mt-8 md:mt-12">
-            <Link to="/login">
+            <Link to="/login?signup=true">
               <Button className="py-1 px-2 sm:py-3 sm:px-8">Get Started</Button>
             </Link>
           </p>

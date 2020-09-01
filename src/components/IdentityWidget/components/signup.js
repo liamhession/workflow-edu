@@ -8,6 +8,10 @@ import VisuallyHidden from '@reach/visually-hidden';
 //   onSignup?: (user?: User) => void
 // }
 
+// Default, initial notification time and timezone to use for all new teachers, until they change it in UI
+const DEFAULT_NOTIFICATION_TIME = '09:00';
+const DEFAULT_TIMEZONE_NAME = 'America/New_York';
+
 // We will not only create the signed-up user in Netlify Identity when person submits their signup details,
 //    we will also create a new teacher document in Firestore so that we can add its id to the user_metadata
 export function Signup({ onSignup }) { //: SignupProps) {
@@ -25,6 +29,8 @@ export function Signup({ onSignup }) { //: SignupProps) {
     const teacherInfo = {
       name: full_name,
       email,
+      notificationTime: DEFAULT_NOTIFICATION_TIME,
+      timezoneName: DEFAULT_TIMEZONE_NAME,
     };
     fetch('/.netlify/functions/create-new-teacher', {
       body: JSON.stringify(teacherInfo),

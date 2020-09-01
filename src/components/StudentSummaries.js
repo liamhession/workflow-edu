@@ -206,11 +206,11 @@ const StudentSummaries = ({
     if (!isActivated) {
       return (
         <tr className="inactive bg-white md:hover:bg-gray-100 flex md:table-row flex-row md:flex-row flex-wrap md:flex-no-wrap mb-10 md:mb-0">
-          <td className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
+          <td className="w-full md:w-auto p-3 pt-6 md:pt-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
             <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Name</span>
             {name}
           </td>
-          <td colSpan={columns.length - 1} className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
+          <td colSpan={columns.length - 1} className="w-full md:w-auto p-3 pt-6 md:pt-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
             <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Note</span>
             Student's account is not yet activated. If you haven't already, give them this code: {activationCode}
           </td>
@@ -222,11 +222,11 @@ const StudentSummaries = ({
     if (!hasLog) {
       return (
         <tr className="no-logs-yet bg-white md:hover:bg-gray-100 flex md:table-row flex-row md:flex-row flex-wrap md:flex-no-wrap mb-10 md:mb-0">
-          <td className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
+          <td className="w-full md:w-auto p-3 pt-6 md:pt-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
             <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Name</span>
             {name}
           </td>
-          <td colSpan={columns.length - 1} className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
+          <td colSpan={columns.length - 1} className="w-full md:w-auto p-3 pt-6 md:pt-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
             <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Note</span>
             Student has not yet logged any entries from their extension. Once they have, it will show here!
           </td>
@@ -239,32 +239,32 @@ const StudentSummaries = ({
 
     return (
       <tr className="bg-white md:hover:bg-gray-100 flex md:table-row flex-row md:flex-row flex-wrap md:flex-no-wrap mb-10 md:mb-0">
-        <td className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
+        <td className="w-full md:w-auto p-3 pt-6 md:pt-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
           <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Name</span>
           <Link to={`/educator/student?studentId=${studentId}`}>{name}</Link>
         </td>
-        <td className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
+        <td className="w-full md:w-auto p-3 pt-6 md:pt-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
           <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Most Recent Log</span>
           {dateTime}
         </td>
-        <td className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
+        <td className="w-full md:w-auto p-3 pt-6 md:pt-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
           <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Wellbeing Score</span>
           <span className="rounded py-1 px-3 text-xs font-bold" style={{ backgroundColor: moodColor }}>{moodScore}</span>
         </td>
-        <td className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
+        <td className="w-full md:w-auto p-3 pt-6 md:pt-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
           <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Mood Influence(s)</span>
           {selectedReasons.join(', ')}
         </td>
-        <td className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
+        <td className="w-full md:w-auto p-3 pt-6 md:pt-3 text-gray-800 text-center border border-b block md:table-cell relative md:static">
           <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Submitted Message</span>
           {customMessage}
         </td>
-        <td className="w-full md:w-auto p-3 text-gray-800 text-center border border-b block md:table-cell relative">
+        <td className="w-full md:w-auto p-3 pt-6 md:pt-3 text-gray-800 text-center border border-b block md:table-cell relative">
           <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Status</span>
           <div className={notificationDivClasses}></div>
           <StatusDropdown currentStatus={teacherStatus} logId={logId} />
         </td>
-        <td className="w-full md:w-auto p-0 text-gray-800 text-center border border-b block md:table-cell relative md:static">
+        <td className="w-full md:w-auto p-0 pt-6 md:pt-0 text-gray-800 text-center border border-b block md:table-cell relative md:static">
           <span className="md:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Teacher Notes</span>
           <NoteTextArea currentNote={teacherNote} logId={logId} />
         </td>
