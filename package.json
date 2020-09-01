@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prestart": "yarn build:tw",
+    "COMMENT": "This stopped working in recent weeks... just run it manually as 'netlify dev' instead",
     "start": "netlify dev",
     "build": "yarn build:gatsby",
     "build:gatsby": "gatsby build",
