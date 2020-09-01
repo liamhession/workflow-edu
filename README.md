@@ -11,14 +11,23 @@ A JavaScript function intercepts form submits and sends them using `fetch` inste
 This is a good starting point for quick Lambda demos.
 
 ## Functions
+### They can be hit locally with this form of url:
 http://localhost:8888/.netlify/functions/function-name
+
+### To create a new function
+* Run `netlify functions:create --name new-function-name` and select the first, basic hello-world template.
+* Then, i copy-paste the body of one of the existing functions that i think is close to what i'm going for.
+* That gets me all the setup for connecting to firebase that exists at the top of any of our given functions
+* Then, i update all the comments, and the body of the function
+* Copy-paste the package.json from another function, being sure to update the `"name"`, `"description"`, and `"main"` of that file.
+* Finally, run `yarn` from within that function's folder
 
 ## Development setup
 
 You should run `yarn` before starting.
+Then run `netlify dev` (NOTE: `yarn start` stopped working for me recently, not sure why, but this works A-OK.)
 
-The following scripts are available:
-
+The following scripts are available (`start` stopped working locally, but can just run `netlfiy dev` locally)
 * `yarn start`: start the Lambda(s) and serving the static directory using [Netlify Dev](https://www.netlify.com/products/dev/) . **Important:** before `start`, `yarn build:tw` runs.
 * `yarn build:tw`: build the full set of Tailwind CSS utilities (useful for development), make sure to check what your site looks will look like live using `yarn build:css`
 * `yarn build`: run netlify-lambda build + Tailwind CSS production build (removes unused classes using PurgeCSS)
