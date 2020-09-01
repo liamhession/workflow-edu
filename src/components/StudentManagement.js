@@ -137,6 +137,7 @@ const StudentManagement = ({
   // TIME OF NOTIFICATION ------------------
   const [notificationTime, setNotificationTime] = React.useState();
   const [timezoneName, setTimezoneName] = React.useState();
+  const [timeUpdating, setTimeUpdating] = React.useState(false);
 
   // Create effect that will be run when teacherId is set, to get notification details.
   //    It's an async function that will be run within the effect call below
@@ -160,8 +161,10 @@ const StudentManagement = ({
 
   // Updat the notification time and timezone that show in the UI, then send to db to update teacher + associated students
   const submitNotificationTime = async () => {
-
     if (isNil(notificationTime) || isNil(timezoneName)) return;
+
+    // Show it as loading
+    setTimeUpdating(true);
 
     setNotificationTime(notificationTime);
     setTimezoneName(timezoneName);
@@ -175,6 +178,7 @@ const StudentManagement = ({
       method: 'POST',
       body: JSON.stringify(notificationTimeBody),
     });
+    setTimeUpdating(false);
   };
 
   // Simple boolean that causes this student management container to be more prominent if teacher has no students yet
@@ -257,12 +261,12 @@ const StudentManagement = ({
           value={notificationTime}
           onChange={(e) => setNotificationTime(e.target.value)}
         >
-          <option value="08:00">8:00</option>
-          <option value="08:30">8:30</option>
-          <option value="09:00">9:00</option>
-          <option value="09:30">9:30</option>
-          <option value="10:00">10:00</option>
-          <option value="10:30">10:30</option>
+          <option value="08:00">8:00 AM</option>
+          <option value="08:30">8:30 AM</option>
+          <option value="09:00">9:00 AM</option>
+          <option value="09:30">9:30 AM</option>
+          <option value="10:00">10:00 AM</option>
+          <option value="10:30">10:30 AM</option>
         </select>
         <select
           className="border mr-1"
@@ -278,7 +282,7 @@ const StudentManagement = ({
         </select>
         <Button 
           onClick={submitNotificationTime}
-        >Submit</Button>
+        >{ timeUpdating ? 'Updating...' : 'Submit' }</Button>
       </div>
     </div>
   );
